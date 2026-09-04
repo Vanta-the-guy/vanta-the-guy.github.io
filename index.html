@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browser</title>
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- UV Imports -->
-    <script src="/active/uv/uv.bundle.js" defer></script>
-    <script src="/active/uv/uv.config.js" defer></script>
     
     <!-- Scramjet Required Global Imports -->
     <script src="/scramjet/scramjet.js"></script>
@@ -152,7 +148,6 @@
             border-color: #6366f1; 
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 0 0 3px rgba(99, 102, 241, 0.15);
         }
-        .proxy-row select:disabled { opacity: 0.5; cursor: not-allowed; border-color: #3f3f46; }
 
         .input-group { display: flex; gap: 8px; }
         .input-group input { flex-grow: 1; }
@@ -213,19 +208,12 @@
             </div>
             <div class="proxy-manager">
                 <div class="proxy-row">
-                    <span>Engine</span>
-                    <select id="engine-select">
-                        <option value="uv">Ultraviolet</option>
-                        <option value="scramjet">Scramjet</option>
-                    </select>
-                </div>
-                <div class="proxy-row">
                     <span>WISP Server</span>
                     <select id="wisp-select">
                         <option value="auto">Auto-Select Fastest</option>
-                        <option value="wss://onyxv1.ai.studio/wisp/">onyxv1.ai.studio</option>
-                        <option value="wss://reverse.myapl.org/wisp/">reverse.myapl.org</option>
-                        <option value="wss://inkmath.adijaya.id/wisp/">inkmath.adijaya.id</option>
+                        <option value="wss://cdn.pcesc.org/adblock/">cdn.pcesc.org</option>
+                        <option value="wss://cdn.kcchallengevbc.com/adblock/">cdn.kcchallengevbc.com</option>
+                        <option value="wss://cdn.slcbmooc.org/adblock/">cdn.slcbmooc.org</option>
                     </select>
                 </div>
                 <div class="proxy-row">
@@ -244,31 +232,19 @@
     </div>
 
     <script type="module">
-        import { registerSW } from "/active/prxy/register-sw.mjs";
-        import * as BareMux from "/active/prxy/baremux/index.mjs";
-
         lucide.createIcons();
 
-        let connection;
-        try {
-            connection = new BareMux.BareMuxConnection("/active/prxy/baremux/worker.js");
-        } catch (e) {
-            console.log("BareMux worker initialization skipped or missing.");
-        }
-
         const WISP_URLS = [
-            "wss://onyxv1.ai.studio/wisp/",
-            "wss://reverse.myapl.org/wisp/",
-            "wss://inkmath.adijaya.id/wisp/"
+            "wss://cdn.pcesc.org/adblock/",
+            "wss://cdn.kcchallengevbc.com/adblock/",
+            "wss://cdn.slcbmooc.org/adblock/"
         ];
 
-        let swReady = null;
         let cachedWisp = null;
         let tabs = [];
         let activeTabId = null;
         let counter = 0;
         
-        // Scramjet Globals mapping
         let scramjetController = null;
         let scramjetFrames = {};
         let currentScramjetWisp = null;
@@ -276,8 +252,7 @@
         let savedBookmarks = JSON.parse(localStorage.getItem('savedBookmarks')) || ["https://open.spotify.com", "https://instagram.com"];
         let starredUrls = new Set(savedBookmarks);
         
-        const proxySettings = JSON.parse(localStorage.getItem('proxySettings')) || { engine: 'uv', wisp: 'auto' };
-        document.getElementById('engine-select').value = proxySettings.engine;
+        const proxySettings = JSON.parse(localStorage.getItem('proxySettings')) || { wisp: 'auto' };
         
         if (proxySettings.wisp !== 'auto' && !WISP_URLS.includes(proxySettings.wisp)) {
             const select = document.getElementById('wisp-select');
@@ -310,36 +285,18 @@
         });
 
         window.navBack = function() {
-            if (!activeTabId) return;
-            const engine = document.getElementById('engine-select').value;
-            if (engine === 'scramjet' && scramjetFrames[activeTabId]) {
-                try { scramjetFrames[activeTabId].back(); } catch(e){}
-            } else {
-                const iframe = document.getElementById(`frame-${activeTabId}`);
-                try { iframe.contentWindow.history.back(); } catch (e) {}
-            }
+            if (!activeTabId || !scramjetFrames[activeTabId]) return;
+            try { scramjetFrames[activeTabId].back(); } catch(e){}
         };
         
         window.navForward = function() {
-            if (!activeTabId) return;
-            const engine = document.getElementById('engine-select').value;
-            if (engine === 'scramjet' && scramjetFrames[activeTabId]) {
-                try { scramjetFrames[activeTabId].forward(); } catch(e){}
-            } else {
-                const iframe = document.getElementById(`frame-${activeTabId}`);
-                try { iframe.contentWindow.history.forward(); } catch (e) {}
-            }
+            if (!activeTabId || !scramjetFrames[activeTabId]) return;
+            try { scramjetFrames[activeTabId].forward(); } catch(e){}
         };
         
         window.reloadActiveTab = function() {
-            if (!activeTabId) return;
-            const engine = document.getElementById('engine-select').value;
-            if (engine === 'scramjet' && scramjetFrames[activeTabId]) {
-                try { scramjetFrames[activeTabId].reload(); } catch(e){}
-            } else {
-                const tab = tabs.find(t => t.id === activeTabId);
-                if (tab) loadUrlInTab(activeTabId, tab.url);
-            }
+            if (!activeTabId || !scramjetFrames[activeTabId]) return;
+            try { scramjetFrames[activeTabId].reload(); } catch(e){}
         };
 
         function saveBookmarks() {
@@ -348,7 +305,6 @@
 
         function saveSettings() {
             localStorage.setItem('proxySettings', JSON.stringify({
-                engine: document.getElementById('engine-select').value,
                 wisp: document.getElementById('wisp-select').value
             }));
         }
@@ -418,14 +374,17 @@
         }
         
         async function initScramjetCore(wispUrl) {
-            if (scramjetController && currentScramjetWisp === wispUrl) return; // Prevent re-initializing same server
+            if (scramjetController && currentScramjetWisp === wispUrl) return; 
             if (typeof window.$scramjetController === 'undefined') return;
             
             const { Controller } = window.$scramjetController;
             const { defaultConfig } = window.$scramjet;
             const EpoxyTransport = self.EpoxyTransport.default;
             
-            await navigator.serviceWorker.ready;
+            if ('serviceWorker' in navigator) {
+                await navigator.serviceWorker.register('/sw.js');
+                await navigator.serviceWorker.ready;
+            }
             const serviceworker = navigator.serviceWorker.controller ?? (await navigator.serviceWorker.ready).active;
             
             const transport = new EpoxyTransport({ wisp: wispUrl });
@@ -439,24 +398,13 @@
             await scramjetController.wait();
             currentScramjetWisp = wispUrl;
             
-            // Clear existing frame bindings because controller has completely restarted
             scramjetFrames = {};
         }
 
         async function setupWisp(targetWisp) {
             try {
-                if (typeof registerSW !== 'undefined') {
-                    if (!swReady) swReady = registerSW();
-                    await swReady;
-                }
                 cachedWisp = targetWisp === 'auto' ? await getBestWisp() : targetWisp;
-                const engine = document.getElementById('engine-select').value;
-                
-                if (engine === 'uv' && connection) {
-                    await connection.setTransport("/active/prxy/libcurl/libcurl.mjs", [{ wisp: cachedWisp }]);
-                } else if (engine === 'scramjet') {
-                    await initScramjetCore(cachedWisp);
-                }
+                await initScramjetCore(cachedWisp);
                 
                 let displayStatus = "";
                 try { 
@@ -478,17 +426,6 @@
                 lucide.createIcons();
             }
         }
-
-        function updateWispUIState() {
-            const wispSelect = document.getElementById('wisp-select');
-            wispSelect.disabled = false;
-            setupWisp(wispSelect.value);
-        }
-
-        document.getElementById('engine-select').addEventListener('change', () => {
-            saveSettings();
-            updateWispUIState();
-        });
 
         document.getElementById('wisp-select').addEventListener('change', async (e) => {
             saveSettings();
@@ -520,20 +457,6 @@
             } catch (e) {}
             return "https://www.google.com/search?q=" + encodeURIComponent(input);
         }
-
-        window.__getProxiedUrl = async function(rawUrl) {
-            if (rawUrl === '/home') return rawUrl;
-            const targetUrl = searchUrl(rawUrl);
-
-            if (!cachedWisp) {
-                await setupWisp(document.getElementById('wisp-select').value);
-            }
-
-            if (typeof __uv$config !== 'undefined') {
-                return __uv$config.prefix + __uv$config.encodeUrl(targetUrl);
-            }
-            return targetUrl;
-        };
 
         function updateTabIcon(tabId, rawUrl) {
             const iconEl = document.querySelector(`#tab-btn-${tabId} .tab-icon`);
@@ -571,12 +494,9 @@
                 try {
                     const loc = iframe.contentWindow.location;
                     const path = loc.pathname + loc.search + loc.hash;
-                    const engine = document.getElementById('engine-select').value;
                     let realUrl = "";
 
-                    if (engine === 'uv' && typeof __uv$config !== 'undefined' && path.startsWith(__uv$config.prefix)) {
-                        realUrl = __uv$config.decodeUrl(path.substring(__uv$config.prefix.length));
-                    } else if (engine === 'scramjet' && typeof __scramjet$config !== 'undefined' && path.startsWith(__scramjet$config.prefix)) {
+                    if (typeof window.$scramjet !== 'undefined' && typeof __scramjet$config !== 'undefined' && path.startsWith(__scramjet$config.prefix)) {
                         realUrl = __scramjet$config.decodeUrl(path.substring(__scramjet$config.prefix.length));
                     }
 
@@ -599,16 +519,13 @@
                             updateStarUI(realUrl);
                         }
                     }
-                } catch(e) {
-                    // Cross-origin restriction fallback silently
-                }
+                } catch(e) {}
             };
 
             updateTabIcon(tabId, rawUrl);
-            const engine = document.getElementById('engine-select').value;
             const targetUrl = searchUrl(rawUrl);
             
-            if (engine === 'scramjet' && rawUrl !== '/home') {
+            if (rawUrl !== '/home') {
                 if (!cachedWisp) {
                     await setupWisp(document.getElementById('wisp-select').value);
                 }
@@ -625,8 +542,7 @@
                     scramjetFrames[tabId].go(targetUrl);
                 }
             } else {
-                const proxiedUrl = await window.__getProxiedUrl(rawUrl);
-                iframe.src = proxiedUrl;
+                iframe.src = 'about:blank';
             }
         }
 
@@ -730,7 +646,7 @@
         });
 
         // Startup Initialization
-        updateWispUIState();
+        setupWisp(document.getElementById('wisp-select').value);
         renderStarredGrid();
         addNewTab("/home", "Home");
     </script>
