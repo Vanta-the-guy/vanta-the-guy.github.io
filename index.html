@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browser</title>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Scramjet Required Global Imports -->
     <script src="/scramjet/scramjet.js"></script>
     <script src="/controller/controller.api.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mercuryworkshop/epoxy-transport@3.0.1/dist/index.js"></script>
@@ -33,7 +32,7 @@
     .boot-line.error { color: #ef4444; }
     .boot-spinner { animation: spin 1s linear infinite; width: 14px; height: 14px; border: 2px solid transparent; border-top-color: currentColor; border-radius: 50%; }
 
-    /* Sidebar & Slim Mode */
+    /* Sidebar */
     .sidebar {
         width: 260px; background-color: #09090b; border-right: 1px solid #1f1f22;
         display: flex; flex-direction: column; padding: 12px; flex-shrink: 0;
@@ -59,7 +58,7 @@
     .sidebar-search .icon-btn.starred:hover { color: #f59e0b; }
 
     .app-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; flex-shrink: 0; }
-    .app-tile { background-color: #18181b; border: 1px solid #27272a; border-radius: 8px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #e4e4e7; transition: all 0.2s ease; position: relative; }
+    .app-tile { background-color: #18181b; border: 1px solid #27272a; border-radius: 8px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #e4e4e7; transition: all 0.2s ease; }
     .app-tile:hover { background-color: #27272a; transform: translateY(-1px); }
     .app-tile img { width: 20px; height: 20px; border-radius: 4px; }
 
@@ -76,40 +75,25 @@
     .tab-item:hover .tab-close, .tab-item.active .tab-close { opacity: 1; }
     .tab-close:hover { background-color: #ef4444; color: #ffffff; }
 
-    /* Main Area & Home View */
+    /* Main Area & iFrames */
     .main-area { flex-grow: 1; display: flex; flex-direction: column; background-color: #050505; transition: width 0.3s ease; position: relative; }
     .content-area { flex-grow: 1; position: relative; background-color: #000000; overflow: hidden; }
     
-    .home-view {
-        position: absolute; inset: 0; background: radial-gradient(circle at center, #131316 0%, #050505 100%);
-        display: none; flex-direction: column; align-items: center; justify-content: center;
-        z-index: 2; opacity: 0; transition: opacity 0.3s ease;
-    }
-    .home-view.active { display: flex; opacity: 1; }
-    .home-title { font-size: 56px; font-weight: 700; letter-spacing: -2px; margin-bottom: 32px; background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; user-select: none; }
-    .home-search-container {
-        width: 100%; max-width: 560px; background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(12px);
-        border: 1px solid rgba(63, 63, 70, 0.5); border-radius: 16px; padding: 16px 24px;
-        display: flex; align-items: center; gap: 16px; box-shadow: 0 16px 32px rgba(0,0,0,0.4);
-        transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-    }
-    .home-search-container:focus-within { border-color: #6366f1; box-shadow: 0 16px 48px rgba(99, 102, 241, 0.15); transform: translateY(-2px); }
-    .home-search-container input { background: transparent; border: none; color: #fff; font-size: 16px; width: 100%; outline: none; }
+    .home-view { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 2; opacity: 0; display: none; transition: opacity 0.3s ease; background-color: #131316; }
+    .home-view.active { display: block; opacity: 1; }
 
-    iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: none; background-color: #09090b; transition: filter 0.3s ease, opacity 0.3s ease; z-index: 1; }
-    iframe.active { display: block; }
-    iframe.loading { filter: blur(12px); opacity: 0.4; pointer-events: none; }
+    iframe.proxy-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: none; background-color: #09090b; transition: filter 0.3s ease, opacity 0.3s ease; z-index: 1; }
+    iframe.proxy-frame.active { display: block; }
+    iframe.proxy-frame.loading { filter: blur(12px); opacity: 0.4; pointer-events: none; }
 
     .loading-spinner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none; align-items: center; justify-content: center; z-index: 5; pointer-events: none; opacity: 0; transition: opacity 0.3s ease; }
     .loading-spinner.active { display: flex; opacity: 1; }
     .spinner-glass { background: rgba(24, 24, 27, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(63, 63, 70, 0.5); padding: 16px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); color: #a1a1aa; display: flex; align-items: center; justify-content: center; animation: spin 0.8s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 </style>
-
 </head>
 <body>
 
-<!-- Boot Screen -->
 <div id="boot-screen">
     <div id="boot-log"></div>
 </div>
@@ -128,43 +112,30 @@
         <input type="text" id="url-input" value="/home" placeholder="Search or URL..." autocomplete="off">
         <button class="icon-btn" id="star-btn"><i data-lucide="star" size="16"></i></button>
     </div>
-    <div class="app-grid" id="starred-grid">
-        <div class="app-tile" onclick="addNewTab()"><i data-lucide="plus" size="18"></i></div>
-    </div>
+    <div class="app-grid" id="starred-grid"></div>
     <div class="tab-list" id="tab-list-container"></div>
 </div>
 
 <div class="main-area">
     <div class="content-area" id="iframe-container">
-        
-        <div id="home-view" class="home-view">
-            <h1 class="home-title">Lumi</h1>
-            <div class="home-search-container">
-                <i data-lucide="search" size="20" color="#a1a1aa"></i>
-                <input type="text" id="home-search-input" placeholder="Search the web or type a URL..." autocomplete="off">
-            </div>
-        </div>
+        <!-- Dedicated Home iframe -->
+        <iframe id="home-view" class="home-view" src="home.html"></iframe>
 
         <div class="loading-spinner" id="loading-spinner">
-            <div class="spinner-glass">
-                <i data-lucide="loader-2" size="28"></i>
-            </div>
+            <div class="spinner-glass"><i data-lucide="loader-2" size="28"></i></div>
         </div>
-
     </div>
 </div>
 
 <script type="module">
     lucide.createIcons();
 
-    // ==========================================
-    // PUT YOUR WISP SERVERS HERE
-    // ==========================================
     const WISP_URLS = [
         "wss://cdn.pcesc.org/adblock/",
         "wss://cdn.kcchallengevbc.com/adblock/",
-        "wss://cdn.slcbmooc.org/adblock/"
-        // Add more WISP server URLs here as needed
+        "wss://cdn.slcbmooc.org/adblock/",
+        "wss://reverse.myapl.org/",
+        "wss://onyxv1.ai.studio/"
     ];
 
     let cachedWisp = null;
@@ -174,7 +145,6 @@
     
     let scramjetController = null;
     let scramjetFrames = {};
-    let currentScramjetWisp = null;
     
     let savedBookmarks = JSON.parse(localStorage.getItem('savedBookmarks')) || ["https://open.spotify.com", "https://instagram.com"];
     let starredUrls = new Set(savedBookmarks);
@@ -184,7 +154,6 @@
     const starredGrid = document.getElementById('starred-grid');
     const loadingSpinner = document.getElementById('loading-spinner');
     const homeView = document.getElementById('home-view');
-    const homeSearchInput = document.getElementById('home-search-input');
 
     document.getElementById('sidebar-toggle').addEventListener('click', () => { document.getElementById('sidebar').classList.toggle('collapsed'); });
 
@@ -194,7 +163,7 @@
 
     function saveBookmarks() { localStorage.setItem('savedBookmarks', JSON.stringify(Array.from(starredUrls))); }
 
-    // Boot Sequence Logic
+    /* Boot Sequence Logic */
     function createLogEntry(msg) {
         const el = document.createElement('div'); el.className = 'boot-line active';
         el.innerHTML = `<div class="boot-spinner"></div> <span>${msg}</span>`;
@@ -208,18 +177,16 @@
     }
 
     async function runBootSequence() {
-        const swLog = createLogEntry('registers sw.js');
-        
+        const swLog = createLogEntry('Registering sw.js...');
         try {
             if ('serviceWorker' in navigator) {
                 await navigator.serviceWorker.register('/sw.js');
                 await navigator.serviceWorker.ready;
-                updateLogEntry(swLog, 'registers sw.js', 'success');
+                updateLogEntry(swLog, 'Registered sw.js successfully', 'success');
             } else { updateLogEntry(swLog, 'Service Workers not supported', 'error'); }
         } catch (err) { updateLogEntry(swLog, `Service Worker Error: ${err.message}`, 'error'); }
 
         let validServer = null;
-
         for (const url of WISP_URLS) {
             const pingLog = createLogEntry(`Checking server: ${url}`);
             try {
@@ -229,21 +196,18 @@
                     ws.onerror = reject;
                     setTimeout(reject, 2500); 
                 });
-                updateLogEntry(pingLog, `${url} is not blocked`, 'success');
-                validServer = url; 
-                break; 
-            } catch (err) {
-                updateLogEntry(pingLog, `${url} is blocked or down`, 'error');
-            }
+                updateLogEntry(pingLog, `${url} is active`, 'success');
+                validServer = url; break; 
+            } catch (err) { updateLogEntry(pingLog, `${url} blocked or down`, 'error'); }
         }
 
         if (!validServer) {
-            const failLog = createLogEntry('Checking fallbacks...');
-            updateLogEntry(failLog, 'No servers responded. Using first list item.', 'error');
+            const failLog = createLogEntry('Fallback to auto-configuration...');
+            updateLogEntry(failLog, 'No unblocked servers found. Trying default.', 'error');
             validServer = WISP_URLS[0]; 
         }
 
-        await setupWisp(validServer); 
+        await initScramjetCore(validServer);
         
         setTimeout(() => {
             document.getElementById('boot-screen').style.opacity = '0';
@@ -255,9 +219,8 @@
     }
 
     async function initScramjetCore(wispUrl) {
-        if (scramjetController && currentScramjetWisp === wispUrl) return; 
+        cachedWisp = wispUrl;
         if (typeof window.$scramjetController === 'undefined') return;
-        
         const { Controller } = window.$scramjetController;
         const { defaultConfig } = window.$scramjet;
         const EpoxyTransport = self.EpoxyTransport.default;
@@ -268,18 +231,9 @@
         
         scramjetController = new Controller({ serviceworker, transport, scramjetConfig: defaultConfig });
         await scramjetController.wait();
-        currentScramjetWisp = wispUrl;
     }
 
-    async function setupWisp(targetWisp) {
-        try {
-            cachedWisp = targetWisp;
-            await initScramjetCore(cachedWisp);
-        } catch (err) {
-            console.error("WISP connection error:", err);
-        }
-    }
-
+    /* Grid & Bookmarks */
     function renderStarredGrid() {
         starredGrid.innerHTML = '';
         starredUrls.forEach(url => {
@@ -309,6 +263,7 @@
         saveBookmarks(); updateStarUI(tab.url); renderStarredGrid();
     });
 
+    /* Tab & Navigation Logic */
     function searchUrl(input) {
         if (input === '/home') return input;
         try { return new URL(input).toString(); } catch (e) {}
@@ -348,7 +303,7 @@
         iframe.classList.add('loading');
         if (tabId === activeTabId) {
             loadingSpinner.classList.add('active');
-            switchTab(tabId);
+            switchTab(tabId); 
         }
 
         iframe.onload = () => {
@@ -372,8 +327,6 @@
             } catch(e) {}
         };
 
-        if (!cachedWisp) await setupWisp(WISP_URLS[0]);
-        if (!scramjetController) await initScramjetCore(cachedWisp);
         if (!scramjetFrames[tabId] && scramjetController) scramjetFrames[tabId] = scramjetController.createFrame(iframe);
         if (scramjetFrames[tabId]) scramjetFrames[tabId].go(targetUrl);
     }
@@ -391,7 +344,8 @@
 
         const container = document.getElementById('iframe-container');
         const iframe = document.createElement('iframe');
-        iframe.id = `frame-${id}`; iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox');
+        iframe.id = `frame-${id}`; iframe.className = 'proxy-frame';
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox');
         container.appendChild(iframe);
 
         lucide.createIcons();
@@ -402,7 +356,7 @@
     window.switchTab = function(id) {
         activeTabId = id;
         document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('iframe').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('iframe.proxy-frame').forEach(i => i.classList.remove('active'));
 
         const activeBtn = document.getElementById(`tab-btn-${id}`);
         const activeFrame = document.getElementById(`frame-${id}`);
@@ -414,7 +368,6 @@
             homeView.classList.add('active');
             if (activeFrame) activeFrame.classList.remove('active');
             loadingSpinner.classList.remove('active');
-            setTimeout(() => homeSearchInput.focus(), 100);
         } else {
             homeView.classList.remove('active');
             if (activeFrame) {
@@ -423,7 +376,6 @@
                 else loadingSpinner.classList.remove('active');
             }
         }
-
         if (tab) { urlInput.value = tab.url; updateStarUI(tab.url); }
     };
 
@@ -449,22 +401,16 @@
         await loadUrlInTab(activeTabId, url);
     };
 
-    const executeSearch = async (val) => {
-        if (!val || !activeTabId) return;
-        const tab = tabs.find(t => t.id === activeTabId);
-        tab.url = val; tab.title = val;
-        document.getElementById(`title-${activeTabId}`).innerText = val;
-        urlInput.value = val; updateStarUI(val);
-        homeSearchInput.value = '';
-        await loadUrlInTab(activeTabId, val);
-    };
-
     urlInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') executeSearch(urlInput.value.trim());
-    });
-    
-    homeSearchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') executeSearch(homeSearchInput.value.trim());
+        if (e.key === 'Enter') {
+            const val = urlInput.value.trim();
+            if (!val || !activeTabId) return;
+            const tab = tabs.find(t => t.id === activeTabId);
+            tab.url = val; tab.title = val;
+            document.getElementById(`title-${activeTabId}`).innerText = val;
+            urlInput.value = val; updateStarUI(val);
+            loadUrlInTab(activeTabId, val);
+        }
     });
 
     runBootSequence();
