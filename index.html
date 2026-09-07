@@ -131,6 +131,7 @@
     lucide.createIcons();
 
     const WISP_URLS = [
+         "wss://wisp3.thehtmlproject.com/",
         "wss://cdn.pcesc.org/adblock/",
         "wss://cdn.kcchallengevbc.com/adblock/",
         "wss://cdn.slcbmooc.org/adblock/",
@@ -146,7 +147,7 @@
     let scramjetController = null;
     let scramjetFrames = {};
     
-    let savedBookmarks = JSON.parse(localStorage.getItem('savedBookmarks')) || ["https://open.spotify.com", "https://instagram.com"];
+    let savedBookmarks = JSON.parse(localStorage.getItem('savedBookmarks')) || ["https://monochrome.tf/", "https://youtube.com"];
     let starredUrls = new Set(savedBookmarks);
     
     const urlInput = document.getElementById('url-input');
