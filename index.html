@@ -153,11 +153,22 @@
                     navigator.serviceWorker.controller ??
                     (await navigator.serviceWorker.ready).active;
 
-                // STEP 3: Connect a transport to a wisp server.
-                // Use your own wisp server in production. Public ones get
-                // rate-limited and can go offline.
+                // STEP 3: Wait for c.js to silently choose the fastest
+                // reachable Wisp server. Fall back if the checker is absent
+                // or takes too long.
+                const wispReady = window.__wispServerReady || Promise.resolve(
+                    "wss://wisp.mercurywork.shop/"
+                );
+                const selectedWisp = await Promise.race([
+                    wispReady,
+                    new Promise(resolve => setTimeout(
+                        () => resolve("wss://wisp.mercurywork.shop/"),
+                        8000
+                    ))
+                ]);
+
                 const transport = new EpoxyTransport({
-                    wisp: "wss://wisp.mercurywork.shop/"
+                    wisp: selectedWisp
                 });
 
                 await transport.init();

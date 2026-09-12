@@ -138,22 +138,15 @@ do this already.
 
 ## Checking bundled Wisp servers
 
-`/c.js` runs automatically and writes the results only to the browser
-developer console. It does not add a panel or other visible page content.
-Open DevTools and look for the collapsed **Wisp server check** group. A server
-marked **REACHABLE** accepted the browser's WebSocket connection; **FAILED** and
-**TIMEOUT** only mean that the connection could not be established and do not
-prove whether a network filter, TLS error, server outage, or server-side
-rejection caused it.
+`/c.js` runs silently with no UI and no console output. It tests the bundled
+Wisp endpoints, chooses the fastest endpoint whose WebSocket opens, and
+`index.html` uses that endpoint for the Scramjet transport. If none respond,
+the existing `wss://wisp.mercurywork.shop/` fallback is used.
 
 The endpoint list is XOR-obfuscated and base64 encoded in `c.js`, and the key
-`seabean` is stored in that file so the check can run automatically. This
-protects the list from casual copying but is not encryption. The checker also
-exposes a programmatic API:
-
-```js
-WispChecker.check().then(console.table);
-```
+`seabean` is stored in that file so the selection can run automatically. This
+is casual obfuscation, not encryption: client-side code cannot be made
+completely hidden from someone who can inspect the page.
 
 ## Troubleshooting
 
