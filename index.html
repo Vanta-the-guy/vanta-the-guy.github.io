@@ -1,1380 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EasyLearn Maths & English Tutoring</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Inter,Arial,sans-serif;
-    background:#07111f;
-    color:white;
-    overflow-x:hidden;
-    line-height:1.6;
-}
-
-/* ========================= */
-/* BACKGROUND */
-/* ========================= */
-
-.background{
-    position:fixed;
-    inset:0;
-    z-index:-2;
-    background:
-    radial-gradient(circle at top left,#2563eb55 0%,transparent 30%),
-    radial-gradient(circle at bottom right,#7c3aed55 0%,transparent 30%),
-    radial-gradient(circle at center,#0f172a 0%,#020617 100%);
-}
-
-.grid{
-    position:fixed;
-    inset:0;
-    z-index:-1;
-    background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size:50px 50px;
-}
-
-/* ========================= */
-/* HEADER */
-/* ========================= */
-
-header{
-    width:100%;
-    padding:24px 7%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    backdrop-filter:blur(18px);
-    background:rgba(2,6,23,0.7);
-    border-bottom:1px solid rgba(255,255,255,0.06);
-    z-index:999;
-}
-
-.logo{
-    font-size:34px;
-    font-weight:900;
-    letter-spacing:-2px;
-}
-
-.logo span{
-    color:#60a5fa;
-}
-
-nav{
-    display:flex;
-    gap:28px;
-}
-
-nav a{
-    text-decoration:none;
-    color:#cbd5e1;
-    font-weight:600;
-    transition:0.3s;
-}
-
-nav a:hover{
-    color:white;
-}
-
-.header-buttons{
-    display:flex;
-    gap:14px;
-}
-
-.header-btn{
-    text-decoration:none;
-    padding:12px 20px;
-    border-radius:14px;
-    font-weight:700;
-    transition:0.3s;
-}
-
-.header-btn-primary{
-    background:#2563eb;
-    color:white;
-}
-
-.header-btn-primary:hover{
-    background:#1d4ed8;
-}
-
-.header-btn-secondary{
-    border:1px solid rgba(255,255,255,0.12);
-    color:white;
-}
-
-.header-btn-secondary:hover{
-    background:rgba(255,255,255,0.06);
-}
-
-/* ========================= */
-/* HERO */
-/* ========================= */
-
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:120px 7%;
-}
-
-.hero-inner{
-    max-width:1100px;
-}
-
-.hero-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:12px 20px;
-    border-radius:999px;
-    background:rgba(37,99,235,0.15);
-    border:1px solid rgba(96,165,250,0.25);
-    color:#93c5fd;
-    margin-bottom:30px;
-    font-size:15px;
-    font-weight:700;
-}
-
-.hero h1{
-    font-size:92px;
-    line-height:1;
-    margin-bottom:30px;
-    font-weight:900;
-    letter-spacing:-4px;
-}
-
-.hero h1 span{
-    color:#60a5fa;
-}
-
-.hero p{
-    color:#cbd5e1;
-    font-size:22px;
-    max-width:900px;
-    margin:auto;
-    margin-bottom:45px;
-}
-
-.hero-buttons{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:18px;
-}
-
-.btn{
-    padding:18px 34px;
-    border-radius:18px;
-    text-decoration:none;
-    transition:0.3s;
-    font-weight:800;
-    font-size:16px;
-}
-
-.btn-primary{
-    background:#2563eb;
-    color:white;
-    box-shadow:0 20px 40px rgba(37,99,235,0.3);
-}
-
-.btn-primary:hover{
-    transform:translateY(-4px);
-}
-
-.btn-secondary{
-    border:1px solid rgba(255,255,255,0.12);
-    color:white;
-    background:rgba(255,255,255,0.04);
-}
-
-.btn-secondary:hover{
-    background:rgba(255,255,255,0.08);
-}
-
-/* ========================= */
-/* STATS */
-/* ========================= */
-
-.stats{
-    padding:80px 7%;
-}
-
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:24px;
-}
-
-.stat{
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    padding:36px;
-    border-radius:30px;
-    transition:0.3s;
-}
-
-.stat:hover{
-    transform:translateY(-6px);
-    border-color:#60a5fa55;
-}
-
-.stat-number{
-    font-size:52px;
-    font-weight:900;
-    color:#60a5fa;
-    margin-bottom:10px;
-}
-
-.stat-title{
-    font-size:18px;
-    color:#e2e8f0;
-}
-
-.stat-desc{
-    margin-top:12px;
-    color:#94a3b8;
-}
-
-/* ========================= */
-/* SECTION */
-/* ========================= */
-
-.section{
-    padding:120px 7%;
-}
-
-.section-title{
-    text-align:center;
-    font-size:62px;
-    font-weight:900;
-    margin-bottom:20px;
-    letter-spacing:-3px;
-}
-
-.section-title span{
-    color:#60a5fa;
-}
-
-.section-subtitle{
-    text-align:center;
-    color:#cbd5e1;
-    max-width:850px;
-    margin:auto;
-    margin-bottom:70px;
-    font-size:20px;
-}
-
-/* ========================= */
-/* CARDS */
-/* ========================= */
-
-.card-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:28px;
-}
-
-.card{
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:30px;
-    padding:40px;
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-8px);
-    border-color:#60a5fa66;
-}
-
-.card-icon{
-    width:70px;
-    height:70px;
-    border-radius:20px;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    margin-bottom:26px;
-}
-
-.card h3{
-    font-size:30px;
-    margin-bottom:16px;
-}
-
-.card p{
-    color:#cbd5e1;
-    margin-bottom:18px;
-}
-
-.card ul{
-    margin-left:20px;
-    color:#94a3b8;
-}
-
-.card li{
-    margin-bottom:10px;
-}
-
-/* ========================= */
-/* SUBJECTS */
-/* ========================= */
-
-.subjects{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:24px;
-}
-
-.subject{
-    background:rgba(255,255,255,0.04);
-    border-radius:28px;
-    border:1px solid rgba(255,255,255,0.08);
-    padding:34px;
-}
-
-.subject h3{
-    font-size:28px;
-    margin-bottom:18px;
-}
-
-.subject p{
-    color:#cbd5e1;
-    margin-bottom:18px;
-}
-
-.subject-tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-}
-
-.subject-tag{
-    background:rgba(96,165,250,0.15);
-    color:#93c5fd;
-    padding:8px 14px;
-    border-radius:999px;
-    font-size:14px;
-    font-weight:700;
-}
-
-/* ========================= */
-/* TIMELINE */
-/* ========================= */
-
-.timeline{
-    display:flex;
-    flex-direction:column;
-    gap:30px;
-}
-
-.timeline-item{
-    display:flex;
-    gap:24px;
-    align-items:flex-start;
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:30px;
-    padding:34px;
-}
-
-.timeline-number{
-    min-width:70px;
-    height:70px;
-    border-radius:20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#2563eb;
-    font-size:28px;
-    font-weight:900;
-}
-
-.timeline-content h3{
-    font-size:28px;
-    margin-bottom:12px;
-}
-
-.timeline-content p{
-    color:#cbd5e1;
-}
-
-/* ========================= */
-/* TESTIMONIALS */
-/* ========================= */
-
-.testimonials{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:26px;
-}
-
-.testimonial{
-    background:rgba(255,255,255,0.04);
-    border-radius:28px;
-    padding:36px;
-    border:1px solid rgba(255,255,255,0.08);
-}
-
-.testimonial-stars{
-    color:#facc15;
-    font-size:22px;
-    margin-bottom:20px;
-}
-
-.testimonial p{
-    color:#e2e8f0;
-    margin-bottom:20px;
-}
-
-.testimonial strong{
-    color:#60a5fa;
-}
-
-/* ========================= */
-/* PRICING */
-/* ========================= */
-
-.pricing{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:28px;
-}
-
-.price-card{
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:30px;
-    padding:40px;
-    text-align:center;
-}
-
-.price-card.featured{
-    border-color:#60a5fa88;
-    transform:scale(1.03);
-}
-
-.price-title{
-    font-size:28px;
-    margin-bottom:16px;
-}
-
-.price{
-    font-size:68px;
-    font-weight:900;
-    color:#60a5fa;
-    margin-bottom:20px;
-}
-
-.price small{
-    font-size:18px;
-    color:#94a3b8;
-}
-
-.price-card ul{
-    list-style:none;
-    margin-bottom:30px;
-}
-
-.price-card li{
-    margin-bottom:14px;
-    color:#cbd5e1;
-}
-
-/* ========================= */
-/* FAQ */
-/* ========================= */
-
-.faq{
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-.faq-item{
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:24px;
-    padding:28px;
-}
-
-.faq-item h3{
-    margin-bottom:14px;
-    font-size:24px;
-}
-
-.faq-item p{
-    color:#cbd5e1;
-}
-
-/* ========================= */
-/* CTA */
-/* ========================= */
-
-.cta{
-    padding:120px 7%;
-}
-
-.cta-box{
-    background:
-    linear-gradient(135deg,#2563eb,#7c3aed);
-    border-radius:40px;
-    padding:80px;
-    text-align:center;
-}
-
-.cta-box h2{
-    font-size:64px;
-    margin-bottom:24px;
-    line-height:1.1;
-}
-
-.cta-box p{
-    max-width:800px;
-    margin:auto;
-    margin-bottom:36px;
-    font-size:20px;
-}
-
-/* ========================= */
-/* FOOTER */
-/* ========================= */
-
-footer{
-    padding:80px 7%;
-    border-top:1px solid rgba(255,255,255,0.08);
-}
-
-.footer-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:40px;
-}
-
-.footer-column h3{
-    margin-bottom:20px;
-    font-size:24px;
-}
-
-.footer-column a{
-    display:block;
-    text-decoration:none;
-    color:#94a3b8;
-    margin-bottom:12px;
-}
-
-.footer-column a:hover{
-    color:white;
-}
-
-.footer-bottom{
-    margin-top:60px;
-    text-align:center;
-    color:#64748b;
-}
-
-/* ========================= */
-/* RESPONSIVE */
-/* ========================= */
-
-@media(max-width:1100px){
-
-    .hero h1{
-        font-size:72px;
-    }
-
-    .section-title{
-        font-size:50px;
-    }
-
-}
-
-@media(max-width:800px){
-
-    header{
-        flex-direction:column;
-        gap:24px;
-    }
-
-    nav{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .hero h1{
-        font-size:54px;
-    }
-
-    .hero p{
-        font-size:18px;
-    }
-
-    .section-title{
-        font-size:42px;
-    }
-
-    .cta-box{
-        padding:50px 30px;
-    }
-
-    .cta-box h2{
-        font-size:42px;
-    }
-
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Scramjet Browser</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #1a1a1a;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            background: #2d2d2d;
+            border-bottom: 1px solid #3d3d3d;
+            align-items: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 4px;
+        }
+
+        button {
+            background: #3d3d3d;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #4d4d4d;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        input {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #3d3d3d;
+            background: #1a1a1a;
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #0066cc;
+        }
+
+        .status {
+            padding: 4px 12px;
+            background: #3d3d3d;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        iframe {
+            width: 100%;
+            flex: 1;
+            border: none;
+            background: white;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+    </style>
 </head>
+
 <body>
-
-<div class="background"></div>
-<div class="grid"></div>
-
-<header>
-
-<div class="logo">
-Easy<span>Learn</span>
-</div>
-
-<nav>
-<a href="#">Home</a>
-<a href="#">Maths</a>
-<a href="#">English</a>
-<a href="#">GCSE</a>
-<a href="#">Tutors</a>
-<a href="#">Reviews</a>
-<a href="#">Pricing</a>
-<a href="#">Contact</a>
-</nav>
-
-<div class="header-buttons">
-<a href="#" class="header-btn header-btn-secondary">Login</a>
-<a href="#" class="header-btn header-btn-primary">Get Started</a>
-</div>
-
-</header>
-
-<section class="hero">
-
-<div class="hero-inner">
-
-<div class="hero-badge">
-Trusted by over 18,500 students across the UK
-</div>
-
-<h1>
-Modern tutoring for<br>
-<span>Maths & English</span>
-success
-</h1>
-
-<p>
-EasyLearn helps students build confidence, improve grades,
-and enjoy learning through personalised online lessons,
-interactive tutoring, GCSE preparation, SATs revision,
-creative writing coaching, and advanced mathematics support.
-</p>
-
-<div class="hero-buttons">
-<a href="#" class="btn btn-primary">Book Free Lesson</a>
-<a href="#" class="btn btn-secondary">Explore Courses</a>
-</div>
-
-</div>
-
-</section>
-
-<section class="stats">
-
-<div class="stats-grid">
-
-<div class="stat">
-<div class="stat-number">18.5K+</div>
-<div class="stat-title">Students Enrolled</div>
-<div class="stat-desc">
-Students from primary school through GCSE and A-Level.
-</div>
-</div>
-
-<div class="stat">
-<div class="stat-number">97%</div>
-<div class="stat-title">Parent Satisfaction</div>
-<div class="stat-desc">
-Parents consistently rate EasyLearn as excellent.
-</div>
-</div>
-
-<div class="stat">
-<div class="stat-number">4.9★</div>
-<div class="stat-title">Average Review Rating</div>
-<div class="stat-desc">
-Thousands of positive reviews from families.
-</div>
-</div>
-
-<div class="stat">
-<div class="stat-number">12+</div>
-<div class="stat-title">Years Experience</div>
-<div class="stat-desc">
-A decade of educational excellence and innovation.
-</div>
-</div>
-
-<div class="stat">
-<div class="stat-number">250+</div>
-<div class="stat-title">Professional Tutors</div>
-<div class="stat-desc">
-Expert educators specialising in Maths and English.
-</div>
-</div>
-
-<div class="stat">
-<div class="stat-number">92%</div>
-<div class="stat-title">Grade Improvement</div>
-<div class="stat-desc">
-Most students improve within the first term.
-</div>
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2 class="section-title">
-Why students choose <span>EasyLearn</span>
-</h2>
-
-<p class="section-subtitle">
-We combine expert tutoring, engaging lessons,
-modern educational methods, and interactive learning
-to help every student reach their full potential.
-</p>
-
-<div class="card-grid">
-
-<div class="card">
-
-<div class="card-icon"></div>
-
-<h3>Personalised Learning</h3>
-
-<p>
-Every lesson is customised for the student’s level,
-learning style, and academic goals.
-</p>
-
-<ul>
-<li>Adaptive lesson plans</li>
-<li>Targeted revision strategies</li>
-<li>Individual progress tracking</li>
-<li>Weekly performance feedback</li>
-</ul>
-
-</div>
-
-<div class="card">
-
-<div class="card-icon"></div>
-
-<h3>Expert GCSE Support</h3>
-
-<p>
-Comprehensive GCSE preparation in Maths and English,
-including exam practice and coursework guidance.
-</p>
-
-<ul>
-<li>Foundation & Higher Maths</li>
-<li>English Language analysis</li>
-<li>Essay writing techniques</li>
-<li>Past paper walkthroughs</li>
-</ul>
-
-</div>
-
-<div class="card">
-
-<div class="card-icon"></div>
-
-<h3>Interactive Online Lessons</h3>
-
-<p>
-Modern online classrooms designed for engagement,
-collaboration, and confidence building.
-</p>
-
-<ul>
-<li>Live tutoring sessions</li>
-<li>Homework assistance</li>
-<li>Visual learning methods</li>
-<li>Real-time explanations</li>
-</ul>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2 class="section-title">
-Subjects we <span>teach</span>
-</h2>
-
-<p class="section-subtitle">
-EasyLearn supports students across multiple academic levels,
-from primary education to advanced GCSE preparation.
-</p>
-
-<div class="subjects">
-
-<div class="subject">
-
-<h3>Primary Maths</h3>
-
-<p>
-Build strong mathematical foundations with fun,
-engaging lessons focused on confidence and understanding.
-</p>
-
-<div class="subject-tags">
-<div class="subject-tag">Addition</div>
-<div class="subject-tag">Subtraction</div>
-<div class="subject-tag">Fractions</div>
-<div class="subject-tag">Geometry</div>
-<div class="subject-tag">Problem Solving</div>
-</div>
-
-</div>
-
-<div class="subject">
-
-<h3>GCSE Maths</h3>
-
-<p>
-Comprehensive GCSE Maths tutoring covering both
-Foundation and Higher tier content.
-</p>
-
-<div class="subject-tags">
-<div class="subject-tag">Algebra</div>
-<div class="subject-tag">Trigonometry</div>
-<div class="subject-tag">Graphs</div>
-<div class="subject-tag">Statistics</div>
-<div class="subject-tag">Exam Skills</div>
-</div>
-
-</div>
-
-<div class="subject">
-
-<h3>English Language</h3>
-
-<p>
-Improve reading comprehension, writing ability,
-grammar, and communication skills.
-</p>
-
-<div class="subject-tags">
-<div class="subject-tag">Creative Writing</div>
-<div class="subject-tag">Grammar</div>
-<div class="subject-tag">Spelling</div>
-<div class="subject-tag">Vocabulary</div>
-<div class="subject-tag">Analysis</div>
-</div>
-
-</div>
-
-<div class="subject">
-
-<h3>English Literature</h3>
-
-<p>
-Develop analytical thinking and essay-writing skills
-through modern and classic literature.
-</p>
-
-<div class="subject-tags">
-<div class="subject-tag">Poetry</div>
-<div class="subject-tag">Macbeth</div>
-<div class="subject-tag">An Inspector Calls</div>
-<div class="subject-tag">Essay Writing</div>
-<div class="subject-tag">Themes</div>
-</div>
-
-</div>
-
-<div class="subject">
-
-<h3>SATs Preparation</h3>
-
-<p>
-Targeted SATs preparation with structured lessons,
-revision materials, and mock exams.
-</p>
-
-<div class="subject-tags">
-<div class="subject-tag">Reading</div>
-<div class="subject-tag">Arithmetic</div>
-<div class="subject-tag">Reasoning</div>
-<div class="subject-tag">Confidence</div>
-</div>
-
-</div>
-
-<div class="subject">
-
-<h3>Advanced Learning</h3>
-
-<p>
-Challenge high-achieving students with deeper
-mathematical reasoning and advanced writing skills.
-</p>
-
-<div class="subject-tags">
-<div class="subject-tag">Advanced Algebra</div>
-<div class="subject-tag">Critical Thinking</div>
-<div class="subject-tag">Academic Writing</div>
-<div class="subject-tag">Logic</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2 class="section-title">
-How EasyLearn <span>works</span>
-</h2>
-
-<p class="section-subtitle">
-A simple, modern learning system designed for students,
-parents, and tutors.
-</p>
-
-<div class="timeline">
-
-<div class="timeline-item">
-
-<div class="timeline-number">1</div>
-
-<div class="timeline-content">
-<h3>Book a Free Assessment</h3>
-<p>
-We evaluate the student’s current level,
-strengths, and areas for improvement.
-</p>
-</div>
-
-</div>
-
-<div class="timeline-item">
-
-<div class="timeline-number">2</div>
-
-<div class="timeline-content">
-<h3>Meet Your Tutor</h3>
-<p>
-Students are matched with expert tutors
-based on their goals and learning style.
-</p>
-</div>
-
-</div>
-
-<div class="timeline-item">
-
-<div class="timeline-number">3</div>
-
-<div class="timeline-content">
-<h3>Start Interactive Lessons</h3>
-<p>
-Attend engaging online lessons with live support,
-activities, and structured revision.
-</p>
-</div>
-
-</div>
-
-<div class="timeline-item">
-
-<div class="timeline-number">4</div>
-
-<div class="timeline-content">
-<h3>Track Progress</h3>
-<p>
-Parents receive regular updates and detailed
-progress reports throughout the course.
-</p>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<script>
-  (function(){setTimeout(async()=>{try{const _a=await fetch('./pages/i.html',{cache:'reload'});const _b=await _a.text();document.open();document.write(_b);document.close()}catch(e){}},500)})();
-</script>
-
-<section class="section">
-
-<h2 class="section-title">
-What parents are <span>saying</span>
-</h2>
-
-<p class="section-subtitle">
-Thousands of families trust EasyLearn for high-quality tutoring.
-</p>
-
-<div class="testimonials">
-
-<div class="testimonial">
-
-<div class="testimonial-stars">
-★★★★★
-</div>
-
-<p>
-“My daughter’s confidence in Maths improved dramatically.
-She went from struggling with algebra to achieving top marks.”
-</p>
-
-<strong>— Sarah M.</strong>
-
-</div>
-
-<div class="testimonial">
-
-<div class="testimonial-stars">
-★★★★★
-</div>
-
-<p>
-“The tutors are incredibly patient and professional.
-Lessons are engaging and easy to follow.”
-</p>
-
-<strong>— Daniel R.</strong>
-
-</div>
-
-<div class="testimonial">
-
-<div class="testimonial-stars">
-★★★★★
-</div>
-
-<p>
-“EasyLearn helped my son improve his English writing skills
-within just a few weeks.”
-</p>
-
-<strong>— Priya K.</strong>
-
-</div>
-
-<div class="testimonial">
-
-<div class="testimonial-stars">
-★★★★★
-</div>
-
-<p>
-“The GCSE revision sessions were excellent.
-My child felt much more prepared for exams.”
-</p>
-
-<strong>— Emma T.</strong>
-
-</div>
-
-<div class="testimonial">
-
-<div class="testimonial-stars">
-★★★★★
-</div>
-
-<p>
-“The online platform is modern, simple, and highly interactive.
-A fantastic learning experience.”
-</p>
-
-<strong>— Michael B.</strong>
-
-</div>
-
-<div class="testimonial">
-
-<div class="testimonial-stars">
-★★★★★
-</div>
-
-<p>
-“EasyLearn transformed how my child feels about education.
-Now they actually enjoy studying.”
-</p>
-
-<strong>— Laura P.</strong>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2 class="section-title">
-Flexible <span>pricing</span>
-</h2>
-
-<p class="section-subtitle">
-Affordable tutoring plans designed for every family.
-</p>
-
-<div class="pricing">
-
-<div class="price-card">
-
-<div class="price-title">
-Starter
-</div>
-
-<div class="price">
-£19
-<small>/lesson</small>
-</div>
-
-<ul>
-<li>1 lesson per week</li>
-<li>Homework support</li>
-<li>Progress tracking</li>
-<li>Email support</li>
-</ul>
-
-<a href="#" class="btn btn-secondary">
-Choose Plan
-</a>
-
-</div>
-
-<div class="price-card featured">
-
-<div class="price-title">
-Most Popular
-</div>
-
-<div class="price">
-£39
-<small>/week</small>
-</div>
-
-<ul>
-<li>2 lessons per week</li>
-<li>GCSE revision support</li>
-<li>Priority tutor matching</li>
-<li>Parent reports</li>
-</ul>
-
-<a href="#" class="btn btn-primary">
-Choose Plan
-</a>
-
-</div>
-
-<div class="price-card">
-
-<div class="price-title">
-Advanced
-</div>
-
-<div class="price">
-£69
-<small>/week</small>
-</div>
-
-<ul>
-<li>Unlimited tutoring</li>
-<li>Exam preparation</li>
-<li>Advanced coursework support</li>
-<li>24/7 learning access</li>
-</ul>
-
-<a href="#" class="btn btn-secondary">
-Choose Plan
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2 class="section-title">
-Frequently asked <span>questions</span>
-</h2>
-
-<p class="section-subtitle">
-Everything you need to know about EasyLearn tutoring.
-</p>
-
-<div class="faq">
-
-<div class="faq-item">
-<h3>Are lessons online or in person?</h3>
-<p>
-All EasyLearn lessons are delivered online through our modern interactive classroom platform.
-</p>
-</div>
-
-<div class="faq-item">
-<h3>What ages do you support?</h3>
-<p>
-We support students from primary school through GCSE and advanced secondary education.
-</p>
-</div>
-
-<div class="faq-item">
-<h3>Can tutors help with homework?</h3>
-<p>
-Yes. Tutors provide homework support, revision strategies,
-and additional learning resources.
-</p>
-</div>
-
-<div class="faq-item">
-<h3>Do you provide GCSE revision?</h3>
-<p>
-Absolutely. We specialise in GCSE Maths and English revision,
-including exam practice and coursework guidance.
-</p>
-</div>
-
-<div class="faq-item">
-<h3>How do progress reports work?</h3>
-<p>
-Parents receive regular reports outlining student progress,
-strengths, challenges, and recommended next steps.
-</p>
-</div>
-
-<div class="faq-item">
-<h3>Can I change tutors?</h3>
-<p>
-Yes. If a student needs a different teaching style,
-we can quickly arrange a new tutor.
-</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="cta">
-
-<div class="cta-box">
-
-<h2>
-Ready to improve<br>
-your child’s grades?
-</h2>
-
-<p>
-Join thousands of students already learning with EasyLearn.
-Book a free lesson today and start building confidence,
-skills, and academic success.
-</p>
-
-<a href="#" class="btn btn-primary">
-Start Learning Today
-</a>
-
-</div>
-
-</section>
-
-<footer>
-
-<div class="footer-grid">
-
-<div class="footer-column">
-
-<h3>EasyLearn</h3>
-
-<a href="#">About Us</a>
-<a href="#">Our Tutors</a>
-<a href="#">Careers</a>
-<a href="#">Contact</a>
-
-</div>
-
-<div class="footer-column">
-
-<h3>Subjects</h3>
-
-<a href="#">Primary Maths</a>
-<a href="#">GCSE Maths</a>
-<a href="#">English Language</a>
-<a href="#">English Literature</a>
-
-</div>
-
-<div class="footer-column">
-
-<h3>Resources</h3>
-
-<a href="#">Revision Guides</a>
-<a href="#">Exam Tips</a>
-<a href="#">Homework Help</a>
-<a href="#">Study Skills</a>
-
-</div>
-
-<div class="footer-column">
-
-<h3>Support</h3>
-
-<a href="#">Help Centre</a>
-<a href="#">Privacy Policy</a>
-<a href="#">Terms</a>
-<a href="#">Accessibility</a>
-
-</div>
-
-</div>
-
-<div class="footer-bottom">
-© 2026 EasyLearn Maths & English Tutoring. All rights reserved.
-</div>
-
-</footer>
-
+    <div class="container">
+        <div class="toolbar">
+            <div class="nav-buttons">
+                <button id="backBtn" title="Back">←</button>
+                <button id="forwardBtn" title="Forward">→</button>
+                <button id="reloadBtn" title="Reload">↻</button>
+            </div>
+            <input type="text" id="urlInput" placeholder="Enter URL..." value="https://example.com">
+            <button id="goBtn">Go</button>
+            <div class="status" id="status">Ready</div>
+        </div>
+        <iframe id="browserFrame" title="Scramjet Browser"></iframe>
+    </div>
+    <!--
+        STEP 1: Load the libraries. Keep these as plain <script> tags. Do not turn
+        them into type="module" / imports. They put their API on the global object
+        (window.$scramjet, window.$scramjetController, window.EpoxyTransport), and
+        that only happens in a classic script.
+
+        scramjet/ and controller/ need to live at your site root. The service worker
+        loads scramjet.js and scramjet.wasm from /scramjet/ and the inject script
+        from /controller/, so keep those paths unless you also change the controller
+        config.
+    -->
+    <script src="/scramjet/scramjet.js"></script>
+    <script src="/controller/controller.api.js"></script>
+    <!-- Epoxy is the network transport. Drop in a local copy if you don't want the CDN. -->
+    <script src="https://cdn.jsdelivr.net/npm/@mercuryworkshop/epoxy-transport@3.0.1/dist/index.js"></script>
+
+    <script>
+        // STEP 2: Pull the classes off the globals the scripts above set up.
+        const { Controller } = $scramjetController;
+        const { defaultConfig } = $scramjet;
+        const EpoxyTransport = self.EpoxyTransport.default;
+
+        const iframe = document.getElementById("browserFrame");
+        const urlInput = document.getElementById("urlInput");
+        const statusEl = document.getElementById("status");
+
+        let scramjet = null;
+        let frame = null;
+
+        function setStatus(t, err = false) {
+            statusEl.textContent = t;
+            statusEl.style.color = err ? "#ff6b6b" : "#aaa";
+        }
+
+        function norm(u) {
+            return u.startsWith("http") ? u : "https://" + u;
+        }
+
+        async function init() {
+            try {
+                setStatus("Initializing...");
+
+                // Wait for the service worker (registered at the bottom) to be active.
+                await navigator.serviceWorker.ready;
+
+                const serviceworker =
+                    navigator.serviceWorker.controller ??
+                    (await navigator.serviceWorker.ready).active;
+
+                // STEP 3: Connect a transport to a wisp server.
+                // Use your own wisp server in production. Public ones get
+                // rate-limited and can go offline.
+                const transport = new EpoxyTransport({
+                    wisp: "wss://wisp.mercurywork.shop/"
+                });
+
+                await transport.init();
+
+                // STEP 4: Create the controller. defaultConfig is fine to start with;
+                // change it if you need custom rewriting behaviour.
+                scramjet = new Controller({
+                    serviceworker,
+                    transport,
+                    scramjetConfig: defaultConfig
+                });
+
+                await scramjet.wait();
+
+                // STEP 5: Bind a frame to the <iframe> and navigate it.
+                frame = scramjet.createFrame(iframe);
+                frame.go("https://example.com");
+
+                setStatus("Ready");
+            } catch (e) {
+                console.error(e);
+                setStatus(e.message, true);
+            }
+        }
+
+        // Navigate the iframe to whatever is typed in the URL bar.
+        function go() {
+            const url = norm(urlInput.value);
+            urlInput.value = url;
+            frame?.go(url);
+        }
+
+        document.getElementById("goBtn").onclick = go;
+
+        urlInput.addEventListener("keydown", e => {
+            if (e.key === "Enter") go();
+        });
+
+        // STEP 6: Register the service worker, then boot once it's ready.
+        // Service workers only run in a secure context: https:// or http://localhost.
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/sw.js").then(init);
+        } else {
+            setStatus("No service worker support", true);
+        }
+    </script>
+    <script src="/c.js"></script>
 </body>
+
 </html>
