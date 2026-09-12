@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <link rel="stylesheet" href="../styles/g.css">
+        <script src="https://cdn.jsdelivr.net/gh/luminsdk/script@latest/fonts.min.js"></script>
+    </head>
+    <body>
+        <div class="top-bar">
+            <div class="provider-sel" id="providerSel">
+                <button class="provider-btn" id="providerBtn">
+                    <i data-lucide="gamepad-2" class="provider-icon"></i>
+                    <span id="providerLabel">Lumin</span>
+                    <i data-lucide="chevron-down" class="provider-chv" id="providerChv"></i>
+                </button>
+                <div class="provider-dr" id="providerDr">
+                    <div class="provider-opt active" data-value="lumin">
+                        <i data-lucide="gamepad-2"></i>
+                        <span>Lumin</span>
+                    </div>
+                    <div class="provider-opt" data-value="truffled">
+                        <i data-lucide="gamepad-2"></i>
+                        <span>Truffled</span>
+                    </div>
+                    <div class="provider-opt" data-value="ugs">
+                        <i data-lucide="gamepad-2"></i>
+                        <span>UGS</span>
+                    </div>
+                    <div class="provider-opt" data-value="gn-math">
+                        <i data-lucide="gamepad-2"></i>
+                        <span>gn-math</span>
+                    </div>
+                </div>
+            </div>
+            <div class="search-wpr">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search through the games...">
+            </div>
+        </div>
+        <div class="game-grid" id="gameGrid">
+            <div class="grid-ld" id="gridLd">
+                <div class="grid-spinner"></div>
+            </div>
+            <div class="scroll-st" id="st"></div>
+        </div>
+        <script src="../scripts/games/g.js"></script>
+    </body>
+</html>

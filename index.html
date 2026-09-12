@@ -1,421 +1,1380 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browser</title>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="/scramjet/scramjet.js"></script>
-    <script src="/controller/controller.api.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mercuryworkshop/epoxy-transport@3.0.1/dist/index.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyLearn Maths & English Tutoring</title>
 
 <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    body, html {
-        width: 100vw; height: 100vh;
-        background-color: #050505; color: #ffffff;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        overflow: hidden; display: flex;
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:#07111f;
+    color:white;
+    overflow-x:hidden;
+    line-height:1.6;
+}
+
+/* ========================= */
+/* BACKGROUND */
+/* ========================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:
+    radial-gradient(circle at top left,#2563eb55 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#7c3aed55 0%,transparent 30%),
+    radial-gradient(circle at center,#0f172a 0%,#020617 100%);
+}
+
+.grid{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:50px 50px;
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+header{
+    width:100%;
+    padding:24px 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    backdrop-filter:blur(18px);
+    background:rgba(2,6,23,0.7);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    z-index:999;
+}
+
+.logo{
+    font-size:34px;
+    font-weight:900;
+    letter-spacing:-2px;
+}
+
+.logo span{
+    color:#60a5fa;
+}
+
+nav{
+    display:flex;
+    gap:28px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#cbd5e1;
+    font-weight:600;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:white;
+}
+
+.header-buttons{
+    display:flex;
+    gap:14px;
+}
+
+.header-btn{
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:14px;
+    font-weight:700;
+    transition:0.3s;
+}
+
+.header-btn-primary{
+    background:#2563eb;
+    color:white;
+}
+
+.header-btn-primary:hover{
+    background:#1d4ed8;
+}
+
+.header-btn-secondary{
+    border:1px solid rgba(255,255,255,0.12);
+    color:white;
+}
+
+.header-btn-secondary:hover{
+    background:rgba(255,255,255,0.06);
+}
+
+/* ========================= */
+/* HERO */
+/* ========================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 7%;
+}
+
+.hero-inner{
+    max-width:1100px;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 20px;
+    border-radius:999px;
+    background:rgba(37,99,235,0.15);
+    border:1px solid rgba(96,165,250,0.25);
+    color:#93c5fd;
+    margin-bottom:30px;
+    font-size:15px;
+    font-weight:700;
+}
+
+.hero h1{
+    font-size:92px;
+    line-height:1;
+    margin-bottom:30px;
+    font-weight:900;
+    letter-spacing:-4px;
+}
+
+.hero h1 span{
+    color:#60a5fa;
+}
+
+.hero p{
+    color:#cbd5e1;
+    font-size:22px;
+    max-width:900px;
+    margin:auto;
+    margin-bottom:45px;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:18px;
+}
+
+.btn{
+    padding:18px 34px;
+    border-radius:18px;
+    text-decoration:none;
+    transition:0.3s;
+    font-weight:800;
+    font-size:16px;
+}
+
+.btn-primary{
+    background:#2563eb;
+    color:white;
+    box-shadow:0 20px 40px rgba(37,99,235,0.3);
+}
+
+.btn-primary:hover{
+    transform:translateY(-4px);
+}
+
+.btn-secondary{
+    border:1px solid rgba(255,255,255,0.12);
+    color:white;
+    background:rgba(255,255,255,0.04);
+}
+
+.btn-secondary:hover{
+    background:rgba(255,255,255,0.08);
+}
+
+/* ========================= */
+/* STATS */
+/* ========================= */
+
+.stats{
+    padding:80px 7%;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:24px;
+}
+
+.stat{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:36px;
+    border-radius:30px;
+    transition:0.3s;
+}
+
+.stat:hover{
+    transform:translateY(-6px);
+    border-color:#60a5fa55;
+}
+
+.stat-number{
+    font-size:52px;
+    font-weight:900;
+    color:#60a5fa;
+    margin-bottom:10px;
+}
+
+.stat-title{
+    font-size:18px;
+    color:#e2e8f0;
+}
+
+.stat-desc{
+    margin-top:12px;
+    color:#94a3b8;
+}
+
+/* ========================= */
+/* SECTION */
+/* ========================= */
+
+.section{
+    padding:120px 7%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:62px;
+    font-weight:900;
+    margin-bottom:20px;
+    letter-spacing:-3px;
+}
+
+.section-title span{
+    color:#60a5fa;
+}
+
+.section-subtitle{
+    text-align:center;
+    color:#cbd5e1;
+    max-width:850px;
+    margin:auto;
+    margin-bottom:70px;
+    font-size:20px;
+}
+
+/* ========================= */
+/* CARDS */
+/* ========================= */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:28px;
+}
+
+.card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:30px;
+    padding:40px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#60a5fa66;
+}
+
+.card-icon{
+    width:70px;
+    height:70px;
+    border-radius:20px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    margin-bottom:26px;
+}
+
+.card h3{
+    font-size:30px;
+    margin-bottom:16px;
+}
+
+.card p{
+    color:#cbd5e1;
+    margin-bottom:18px;
+}
+
+.card ul{
+    margin-left:20px;
+    color:#94a3b8;
+}
+
+.card li{
+    margin-bottom:10px;
+}
+
+/* ========================= */
+/* SUBJECTS */
+/* ========================= */
+
+.subjects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+}
+
+.subject{
+    background:rgba(255,255,255,0.04);
+    border-radius:28px;
+    border:1px solid rgba(255,255,255,0.08);
+    padding:34px;
+}
+
+.subject h3{
+    font-size:28px;
+    margin-bottom:18px;
+}
+
+.subject p{
+    color:#cbd5e1;
+    margin-bottom:18px;
+}
+
+.subject-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.subject-tag{
+    background:rgba(96,165,250,0.15);
+    color:#93c5fd;
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:14px;
+    font-weight:700;
+}
+
+/* ========================= */
+/* TIMELINE */
+/* ========================= */
+
+.timeline{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+.timeline-item{
+    display:flex;
+    gap:24px;
+    align-items:flex-start;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:30px;
+    padding:34px;
+}
+
+.timeline-number{
+    min-width:70px;
+    height:70px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#2563eb;
+    font-size:28px;
+    font-weight:900;
+}
+
+.timeline-content h3{
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.timeline-content p{
+    color:#cbd5e1;
+}
+
+/* ========================= */
+/* TESTIMONIALS */
+/* ========================= */
+
+.testimonials{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:26px;
+}
+
+.testimonial{
+    background:rgba(255,255,255,0.04);
+    border-radius:28px;
+    padding:36px;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.testimonial-stars{
+    color:#facc15;
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+.testimonial p{
+    color:#e2e8f0;
+    margin-bottom:20px;
+}
+
+.testimonial strong{
+    color:#60a5fa;
+}
+
+/* ========================= */
+/* PRICING */
+/* ========================= */
+
+.pricing{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:28px;
+}
+
+.price-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:30px;
+    padding:40px;
+    text-align:center;
+}
+
+.price-card.featured{
+    border-color:#60a5fa88;
+    transform:scale(1.03);
+}
+
+.price-title{
+    font-size:28px;
+    margin-bottom:16px;
+}
+
+.price{
+    font-size:68px;
+    font-weight:900;
+    color:#60a5fa;
+    margin-bottom:20px;
+}
+
+.price small{
+    font-size:18px;
+    color:#94a3b8;
+}
+
+.price-card ul{
+    list-style:none;
+    margin-bottom:30px;
+}
+
+.price-card li{
+    margin-bottom:14px;
+    color:#cbd5e1;
+}
+
+/* ========================= */
+/* FAQ */
+/* ========================= */
+
+.faq{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.faq-item{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:24px;
+    padding:28px;
+}
+
+.faq-item h3{
+    margin-bottom:14px;
+    font-size:24px;
+}
+
+.faq-item p{
+    color:#cbd5e1;
+}
+
+/* ========================= */
+/* CTA */
+/* ========================= */
+
+.cta{
+    padding:120px 7%;
+}
+
+.cta-box{
+    background:
+    linear-gradient(135deg,#2563eb,#7c3aed);
+    border-radius:40px;
+    padding:80px;
+    text-align:center;
+}
+
+.cta-box h2{
+    font-size:64px;
+    margin-bottom:24px;
+    line-height:1.1;
+}
+
+.cta-box p{
+    max-width:800px;
+    margin:auto;
+    margin-bottom:36px;
+    font-size:20px;
+}
+
+/* ========================= */
+/* FOOTER */
+/* ========================= */
+
+footer{
+    padding:80px 7%;
+    border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:40px;
+}
+
+.footer-column h3{
+    margin-bottom:20px;
+    font-size:24px;
+}
+
+.footer-column a{
+    display:block;
+    text-decoration:none;
+    color:#94a3b8;
+    margin-bottom:12px;
+}
+
+.footer-column a:hover{
+    color:white;
+}
+
+.footer-bottom{
+    margin-top:60px;
+    text-align:center;
+    color:#64748b;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media(max-width:1100px){
+
+    .hero h1{
+        font-size:72px;
     }
 
-    /* Boot Screen */
-    #boot-screen {
-        position: fixed; inset: 0; background-color: #000000; color: #ffffff;
-        z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        transition: opacity 0.5s ease, visibility 0.5s;
+    .section-title{
+        font-size:50px;
     }
-    #boot-log { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 8px; }
-    .boot-line { font-size: 14px; font-weight: 500; color: #a1a1aa; display: flex; align-items: center; gap: 8px; }
-    .boot-line.active { color: #ffffff; }
-    .boot-line.success { color: #10b981; }
-    .boot-line.error { color: #ef4444; }
-    .boot-spinner { animation: spin 1s linear infinite; width: 14px; height: 14px; border: 2px solid transparent; border-top-color: currentColor; border-radius: 50%; }
 
-    /* Sidebar */
-    .sidebar {
-        width: 260px; background-color: #09090b; border-right: 1px solid #1f1f22;
-        display: flex; flex-direction: column; padding: 12px; flex-shrink: 0;
-        z-index: 10; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow-x: hidden;
+}
+
+@media(max-width:800px){
+
+    header{
+        flex-direction:column;
+        gap:24px;
     }
-    .sidebar.collapsed { width: 60px; padding: 12px 6px; }
-    .sidebar-header-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 0 4px; flex-wrap: wrap; gap: 8px; }
-    .sidebar.collapsed .sidebar-header-controls { justify-content: center; }
-    .sidebar.collapsed .nav-group, .sidebar.collapsed .sidebar-search, .sidebar.collapsed .app-grid, .sidebar.collapsed .tab-title, .sidebar.collapsed .tab-close { display: none; }
-    .sidebar.collapsed .tab-item { padding: 10px; justify-content: center; }
 
-    .nav-group { display: flex; gap: 4px; color: #a1a1aa; }
-    .icon-btn { background: transparent; border: none; color: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 6px; padding: 6px; transition: all 0.2s ease; flex-shrink: 0; }
-    .icon-btn:hover { color: #ffffff; background-color: #27272a; }
-    .icon-btn.active { color: #ffffff; background-color: #3f3f46; }
+    nav{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
 
-    .sidebar-search { display: flex; align-items: center; background-color: #18181b; border: 1px solid #27272a; border-radius: 8px; padding: 6px 12px; margin-bottom: 16px; gap: 8px; transition: border-color 0.2s ease; flex-shrink: 0; }
-    .sidebar-search:focus-within { border-color: #52525b; }
-    .sidebar-search input { background: transparent; border: none; color: #e4e4e7; font-size: 13px; width: 100%; outline: none; }
-    .sidebar-search .icon-btn { color: #a1a1aa; padding: 4px; margin-right: -6px; }
-    .sidebar-search .icon-btn.starred { color: #fbbf24; }
-    .sidebar-search .icon-btn.starred:hover { color: #f59e0b; }
+    .hero h1{
+        font-size:54px;
+    }
 
-    .app-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; flex-shrink: 0; }
-    .app-tile { background-color: #18181b; border: 1px solid #27272a; border-radius: 8px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #e4e4e7; transition: all 0.2s ease; }
-    .app-tile:hover { background-color: #27272a; transform: translateY(-1px); }
-    .app-tile img { width: 20px; height: 20px; border-radius: 4px; }
+    .hero p{
+        font-size:18px;
+    }
 
-    .tab-list { display: flex; flex-direction: column; gap: 4px; flex-grow: 1; overflow-y: auto; overflow-x: hidden; }
-    .tab-list::-webkit-scrollbar { width: 6px; }
-    .tab-list::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
-    .tab-list::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
-    .tab-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 13px; color: #a1a1aa; border: 1px solid transparent; transition: all 0.2s ease; }
-    .tab-item:hover { background-color: #18181b; color: #e4e4e7; }
-    .tab-item.active { background-color: #27272a; color: #ffffff; border: 1px solid #3f3f46; }
-    .tab-icon { display: flex; align-items: center; justify-content: center; color: inherit; width: 16px; flex-shrink: 0; }
-    .tab-title { flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .tab-close { opacity: 0; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 4px; color: #a1a1aa; transition: all 0.2s ease; flex-shrink: 0; }
-    .tab-item:hover .tab-close, .tab-item.active .tab-close { opacity: 1; }
-    .tab-close:hover { background-color: #ef4444; color: #ffffff; }
+    .section-title{
+        font-size:42px;
+    }
 
-    /* Main Area & iFrames */
-    .main-area { flex-grow: 1; display: flex; flex-direction: column; background-color: #050505; transition: width 0.3s ease; position: relative; }
-    .content-area { flex-grow: 1; position: relative; background-color: #000000; overflow: hidden; }
-    
-    .home-view { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 2; opacity: 0; display: none; transition: opacity 0.3s ease; background-color: #131316; }
-    .home-view.active { display: block; opacity: 1; }
+    .cta-box{
+        padding:50px 30px;
+    }
 
-    iframe.proxy-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: none; background-color: #09090b; transition: filter 0.3s ease, opacity 0.3s ease; z-index: 1; }
-    iframe.proxy-frame.active { display: block; }
-    iframe.proxy-frame.loading { filter: blur(12px); opacity: 0.4; pointer-events: none; }
+    .cta-box h2{
+        font-size:42px;
+    }
 
-    .loading-spinner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none; align-items: center; justify-content: center; z-index: 5; pointer-events: none; opacity: 0; transition: opacity 0.3s ease; }
-    .loading-spinner.active { display: flex; opacity: 1; }
-    .spinner-glass { background: rgba(24, 24, 27, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(63, 63, 70, 0.5); padding: 16px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); color: #a1a1aa; display: flex; align-items: center; justify-content: center; animation: spin 0.8s linear infinite; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+}
+
 </style>
 </head>
 <body>
 
-<div id="boot-screen">
-    <div id="boot-log"></div>
+<div class="background"></div>
+<div class="grid"></div>
+
+<header>
+
+<div class="logo">
+Easy<span>Learn</span>
 </div>
 
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-header-controls">
-        <button class="icon-btn" id="sidebar-toggle" style="color: #a1a1aa;" title="Toggle Sidebar"><i data-lucide="menu" size="20"></i></button>
-        <div class="nav-group">
-            <button class="icon-btn" onclick="navBack()"><i data-lucide="chevron-left" size="18"></i></button>
-            <button class="icon-btn" onclick="navForward()"><i data-lucide="chevron-right" size="18"></i></button>
-            <button class="icon-btn" onclick="reloadActiveTab()"><i data-lucide="rotate-cw" size="16"></i></button>
-        </div>
-    </div>
-    <div class="sidebar-search">
-        <i data-lucide="search" size="14" color="#a1a1aa"></i>
-        <input type="text" id="url-input" value="/home" placeholder="Search or URL..." autocomplete="off">
-        <button class="icon-btn" id="star-btn"><i data-lucide="star" size="16"></i></button>
-    </div>
-    <div class="app-grid" id="starred-grid"></div>
-    <div class="tab-list" id="tab-list-container"></div>
+<nav>
+<a href="#">Home</a>
+<a href="#">Maths</a>
+<a href="#">English</a>
+<a href="#">GCSE</a>
+<a href="#">Tutors</a>
+<a href="#">Reviews</a>
+<a href="#">Pricing</a>
+<a href="#">Contact</a>
+</nav>
+
+<div class="header-buttons">
+<a href="#" class="header-btn header-btn-secondary">Login</a>
+<a href="#" class="header-btn header-btn-primary">Get Started</a>
 </div>
 
-<div class="main-area">
-    <div class="content-area" id="iframe-container">
-        <!-- Dedicated Home iframe -->
-        <iframe id="home-view" class="home-view" src="home.html"></iframe>
+</header>
 
-        <div class="loading-spinner" id="loading-spinner">
-            <div class="spinner-glass"><i data-lucide="loader-2" size="28"></i></div>
-        </div>
-    </div>
+<section class="hero">
+
+<div class="hero-inner">
+
+<div class="hero-badge">
+Trusted by over 18,500 students across the UK
 </div>
 
-<script type="module">
-    lucide.createIcons();
+<h1>
+Modern tutoring for<br>
+<span>Maths & English</span>
+success
+</h1>
 
-    const WISP_URLS = [
-         "wss://wisp3.thehtmlproject.com/",
-        "wss://cdn.pcesc.org/adblock/",
-        "wss://cdn.kcchallengevbc.com/adblock/",
-        "wss://cdn.slcbmooc.org/adblock/",
-        "wss://reverse.myapl.org/",
-        "wss://onyxv1.ai.studio/"
-    ];
+<p>
+EasyLearn helps students build confidence, improve grades,
+and enjoy learning through personalised online lessons,
+interactive tutoring, GCSE preparation, SATs revision,
+creative writing coaching, and advanced mathematics support.
+</p>
 
-    let cachedWisp = null;
-    let tabs = [];
-    let activeTabId = null;
-    let counter = 0;
-    
-    let scramjetController = null;
-    let scramjetFrames = {};
-    
-    let savedBookmarks = JSON.parse(localStorage.getItem('savedBookmarks')) || ["https://monochrome.tf/", "https://youtube.com"];
-    let starredUrls = new Set(savedBookmarks);
-    
-    const urlInput = document.getElementById('url-input');
-    const starBtn = document.getElementById('star-btn');
-    const starredGrid = document.getElementById('starred-grid');
-    const loadingSpinner = document.getElementById('loading-spinner');
-    const homeView = document.getElementById('home-view');
+<div class="hero-buttons">
+<a href="#" class="btn btn-primary">Book Free Lesson</a>
+<a href="#" class="btn btn-secondary">Explore Courses</a>
+</div>
 
-    document.getElementById('sidebar-toggle').addEventListener('click', () => { document.getElementById('sidebar').classList.toggle('collapsed'); });
+</div>
 
-    window.navBack = function() { if (activeTabId && scramjetFrames[activeTabId]) try { scramjetFrames[activeTabId].back(); } catch(e){} };
-    window.navForward = function() { if (activeTabId && scramjetFrames[activeTabId]) try { scramjetFrames[activeTabId].forward(); } catch(e){} };
-    window.reloadActiveTab = function() { if (activeTabId && scramjetFrames[activeTabId]) try { scramjetFrames[activeTabId].reload(); } catch(e){} };
+</section>
 
-    function saveBookmarks() { localStorage.setItem('savedBookmarks', JSON.stringify(Array.from(starredUrls))); }
+<section class="stats">
 
-    /* Boot Sequence Logic */
-    function createLogEntry(msg) {
-        const el = document.createElement('div'); el.className = 'boot-line active';
-        el.innerHTML = `<div class="boot-spinner"></div> <span>${msg}</span>`;
-        document.getElementById('boot-log').appendChild(el); return el;
-    }
-    function updateLogEntry(el, msg, status) {
-        el.className = `boot-line ${status}`;
-        let icon = status === 'success' ? 'check-circle' : 'x-circle';
-        el.innerHTML = `<i data-lucide="${icon}" size="14"></i> <span>${msg}</span>`;
-        lucide.createIcons();
-    }
+<div class="stats-grid">
 
-    async function runBootSequence() {
-        const swLog = createLogEntry('Registering sw.js...');
-        try {
-            if ('serviceWorker' in navigator) {
-                await navigator.serviceWorker.register('/sw.js');
-                await navigator.serviceWorker.ready;
-                updateLogEntry(swLog, 'Registered sw.js successfully', 'success');
-            } else { updateLogEntry(swLog, 'Service Workers not supported', 'error'); }
-        } catch (err) { updateLogEntry(swLog, `Service Worker Error: ${err.message}`, 'error'); }
+<div class="stat">
+<div class="stat-number">18.5K+</div>
+<div class="stat-title">Students Enrolled</div>
+<div class="stat-desc">
+Students from primary school through GCSE and A-Level.
+</div>
+</div>
 
-        let validServer = null;
-        for (const url of WISP_URLS) {
-            const pingLog = createLogEntry(`Checking server: ${url}`);
-            try {
-                const ws = new WebSocket(url);
-                await new Promise((resolve, reject) => {
-                    ws.onopen = () => { ws.close(); resolve(); };
-                    ws.onerror = reject;
-                    setTimeout(reject, 2500); 
-                });
-                updateLogEntry(pingLog, `${url} is active`, 'success');
-                validServer = url; break; 
-            } catch (err) { updateLogEntry(pingLog, `${url} blocked or down`, 'error'); }
-        }
+<div class="stat">
+<div class="stat-number">97%</div>
+<div class="stat-title">Parent Satisfaction</div>
+<div class="stat-desc">
+Parents consistently rate EasyLearn as excellent.
+</div>
+</div>
 
-        if (!validServer) {
-            const failLog = createLogEntry('Fallback to auto-configuration...');
-            updateLogEntry(failLog, 'No unblocked servers found. Trying default.', 'error');
-            validServer = WISP_URLS[0]; 
-        }
+<div class="stat">
+<div class="stat-number">4.9★</div>
+<div class="stat-title">Average Review Rating</div>
+<div class="stat-desc">
+Thousands of positive reviews from families.
+</div>
+</div>
 
-        await initScramjetCore(validServer);
-        
-        setTimeout(() => {
-            document.getElementById('boot-screen').style.opacity = '0';
-            document.getElementById('boot-screen').style.visibility = 'hidden';
-            setTimeout(() => document.getElementById('boot-screen').remove(), 500);
-            addNewTab("/home", "Home");
-            renderStarredGrid();
-        }, 800);
-    }
+<div class="stat">
+<div class="stat-number">12+</div>
+<div class="stat-title">Years Experience</div>
+<div class="stat-desc">
+A decade of educational excellence and innovation.
+</div>
+</div>
 
-    async function initScramjetCore(wispUrl) {
-        cachedWisp = wispUrl;
-        if (typeof window.$scramjetController === 'undefined') return;
-        const { Controller } = window.$scramjetController;
-        const { defaultConfig } = window.$scramjet;
-        const EpoxyTransport = self.EpoxyTransport.default;
-        
-        const serviceworker = navigator.serviceWorker.controller ?? (await navigator.serviceWorker.ready).active;
-        const transport = new EpoxyTransport({ wisp: wispUrl });
-        await transport.init();
-        
-        scramjetController = new Controller({ serviceworker, transport, scramjetConfig: defaultConfig });
-        await scramjetController.wait();
-    }
+<div class="stat">
+<div class="stat-number">250+</div>
+<div class="stat-title">Professional Tutors</div>
+<div class="stat-desc">
+Expert educators specialising in Maths and English.
+</div>
+</div>
 
-    /* Grid & Bookmarks */
-    function renderStarredGrid() {
-        starredGrid.innerHTML = '';
-        starredUrls.forEach(url => {
-            let domain = url;
-            try { domain = new URL(url).hostname; } catch(e) {}
-            const tile = document.createElement('div');
-            tile.className = 'app-tile'; tile.title = domain; tile.onclick = () => loadShortcut(url, domain);
-            tile.innerHTML = `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" alt="${domain}" onerror="this.outerHTML='<i data-lucide=\\'globe\\' size=\\'18\\'></i>'">`;
-            starredGrid.appendChild(tile);
-        });
-        const plusBtn = document.createElement('div');
-        plusBtn.className = 'app-tile'; plusBtn.onclick = () => addNewTab(); plusBtn.innerHTML = `<i data-lucide="plus" size="18"></i>`;
-        starredGrid.appendChild(plusBtn);
-        lucide.createIcons();
-    }
+<div class="stat">
+<div class="stat-number">92%</div>
+<div class="stat-title">Grade Improvement</div>
+<div class="stat-desc">
+Most students improve within the first term.
+</div>
+</div>
 
-    function updateStarUI(url) {
-        if (starredUrls.has(url)) { starBtn.classList.add('starred'); starBtn.innerHTML = `<i data-lucide="star" size="16" fill="currentColor"></i>`; } 
-        else { starBtn.classList.remove('starred'); starBtn.innerHTML = `<i data-lucide="star" size="16"></i>`; }
-        lucide.createIcons();
-    }
+</div>
 
-    starBtn.addEventListener('click', () => {
-        if (!activeTabId) return;
-        const tab = tabs.find(t => t.id === activeTabId);
-        if (starredUrls.has(tab.url)) starredUrls.delete(tab.url); else starredUrls.add(tab.url);
-        saveBookmarks(); updateStarUI(tab.url); renderStarredGrid();
-    });
+</section>
 
-    /* Tab & Navigation Logic */
-    function searchUrl(input) {
-        if (input === '/home') return input;
-        try { return new URL(input).toString(); } catch (e) {}
-        try { const u = new URL(`http://${input}`); if (u.hostname.includes(".")) return u.toString(); } catch (e) {}
-        return "https://www.google.com/search?q=" + encodeURIComponent(input);
-    }
+<section class="section">
 
-    function updateTabIcon(tabId, rawUrl) {
-        const iconEl = document.querySelector(`#tab-btn-${tabId} .tab-icon`);
-        if (!iconEl) return;
-        if (rawUrl === '/home') { iconEl.innerHTML = `<i data-lucide="home" size="16"></i>`; lucide.createIcons(); return; }
-        try {
-            let domain = searchUrl(rawUrl);
-            if (domain.startsWith('http')) domain = new URL(domain).hostname;
-            iconEl.innerHTML = `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=32" style="width:16px;height:16px;border-radius:2px;" onerror="this.outerHTML='<i data-lucide=\\'globe\\' size=\\'16\\'></i>'">`;
-        } catch (e) { iconEl.innerHTML = `<i data-lucide="globe" size="16"></i>`; lucide.createIcons(); }
-    }
+<h2 class="section-title">
+Why students choose <span>EasyLearn</span>
+</h2>
 
-    async function loadUrlInTab(tabId, rawUrl) {
-        const tab = tabs.find(t => t.id === tabId);
-        if (!tab) return;
-        
-        tab.url = rawUrl;
-        updateTabIcon(tabId, rawUrl);
-        
-        if (rawUrl === '/home') {
-            tab.title = "Home";
-            document.getElementById(`title-${tabId}`).innerText = "Home";
-            if (tabId === activeTabId) switchTab(tabId);
-            return;
-        }
-        
-        const targetUrl = searchUrl(rawUrl);
-        const iframe = document.getElementById(`frame-${tabId}`);
-        if (!iframe) return;
+<p class="section-subtitle">
+We combine expert tutoring, engaging lessons,
+modern educational methods, and interactive learning
+to help every student reach their full potential.
+</p>
 
-        iframe.classList.add('loading');
-        if (tabId === activeTabId) {
-            loadingSpinner.classList.add('active');
-            switchTab(tabId); 
-        }
+<div class="card-grid">
 
-        iframe.onload = () => {
-            iframe.classList.remove('loading');
-            if (tabId === activeTabId) loadingSpinner.classList.remove('active');
-            try {
-                const loc = iframe.contentWindow.location;
-                const path = loc.pathname + loc.search + loc.hash;
-                let realUrl = "";
-                if (typeof window.$scramjet !== 'undefined' && typeof __scramjet$config !== 'undefined' && path.startsWith(__scramjet$config.prefix)) {
-                    realUrl = __scramjet$config.decodeUrl(path.substring(__scramjet$config.prefix.length));
-                }
-                if (realUrl && realUrl !== "about:blank") {
-                    let realTitle = iframe.contentDocument ? iframe.contentDocument.title : "";
-                    if (!realTitle) realTitle = new URL(realUrl).hostname || realUrl;
-                    tab.url = realUrl; tab.title = realTitle;
-                    document.getElementById(`title-${tabId}`).innerText = realTitle;
-                    updateTabIcon(tabId, realUrl);
-                    if (tabId === activeTabId) { urlInput.value = realUrl; updateStarUI(realUrl); }
-                }
-            } catch(e) {}
-        };
+<div class="card">
 
-        if (!scramjetFrames[tabId] && scramjetController) scramjetFrames[tabId] = scramjetController.createFrame(iframe);
-        if (scramjetFrames[tabId]) scramjetFrames[tabId].go(targetUrl);
-    }
+<div class="card-icon"></div>
 
-    window.addNewTab = async function(initialUrl = "/home", title = "Home") {
-        const id = `tab-${counter++}`;
-        tabs.push({ id, url: initialUrl, title });
+<h3>Personalised Learning</h3>
 
-        const tabList = document.getElementById('tab-list-container');
-        const tabEl = document.createElement('div');
-        tabEl.className = 'tab-item'; tabEl.id = `tab-btn-${id}`;
-        tabEl.onclick = () => switchTab(id);
-        tabEl.innerHTML = `<div class="tab-icon"><i data-lucide="globe" size="16"></i></div><div class="tab-title" id="title-${id}">${title}</div><div class="tab-close" onclick="closeTab('${id}', event)"><i data-lucide="x" size="14"></i></div>`;
-        tabList.appendChild(tabEl);
+<p>
+Every lesson is customised for the student’s level,
+learning style, and academic goals.
+</p>
 
-        const container = document.getElementById('iframe-container');
-        const iframe = document.createElement('iframe');
-        iframe.id = `frame-${id}`; iframe.className = 'proxy-frame';
-        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox');
-        container.appendChild(iframe);
+<ul>
+<li>Adaptive lesson plans</li>
+<li>Targeted revision strategies</li>
+<li>Individual progress tracking</li>
+<li>Weekly performance feedback</li>
+</ul>
 
-        lucide.createIcons();
-        switchTab(id);
-        await loadUrlInTab(id, initialUrl);
-    };
+</div>
 
-    window.switchTab = function(id) {
-        activeTabId = id;
-        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('iframe.proxy-frame').forEach(i => i.classList.remove('active'));
+<div class="card">
 
-        const activeBtn = document.getElementById(`tab-btn-${id}`);
-        const activeFrame = document.getElementById(`frame-${id}`);
-        const tab = tabs.find(t => t.id === id);
+<div class="card-icon"></div>
 
-        if (activeBtn) activeBtn.classList.add('active');
+<h3>Expert GCSE Support</h3>
 
-        if (tab && tab.url === '/home') {
-            homeView.classList.add('active');
-            if (activeFrame) activeFrame.classList.remove('active');
-            loadingSpinner.classList.remove('active');
-        } else {
-            homeView.classList.remove('active');
-            if (activeFrame) {
-                activeFrame.classList.add('active');
-                if (activeFrame.classList.contains('loading')) loadingSpinner.classList.add('active');
-                else loadingSpinner.classList.remove('active');
-            }
-        }
-        if (tab) { urlInput.value = tab.url; updateStarUI(tab.url); }
-    };
+<p>
+Comprehensive GCSE preparation in Maths and English,
+including exam practice and coursework guidance.
+</p>
 
-    window.closeTab = function(id, event) {
-        event.stopPropagation();
-        const tabBtn = document.getElementById(`tab-btn-${id}`);
-        const frame = document.getElementById(`frame-${id}`);
-        if (tabBtn) tabBtn.remove();
-        if (frame) frame.remove();
-        if (scramjetFrames[id]) delete scramjetFrames[id];
+<ul>
+<li>Foundation & Higher Maths</li>
+<li>English Language analysis</li>
+<li>Essay writing techniques</li>
+<li>Past paper walkthroughs</li>
+</ul>
 
-        tabs = tabs.filter(t => t.id !== id);
-        if (tabs.length === 0) addNewTab("/home", "Home");
-        else if (activeTabId === id) switchTab(tabs[tabs.length - 1].id);
-    };
+</div>
 
-    window.loadShortcut = async function(url, title) {
-        if (!activeTabId) { await addNewTab(url, title); return; }
-        const tab = tabs.find(t => t.id === activeTabId);
-        tab.url = url; tab.title = title;
-        document.getElementById(`title-${activeTabId}`).innerText = title;
-        urlInput.value = url; updateStarUI(url);
-        await loadUrlInTab(activeTabId, url);
-    };
+<div class="card">
 
-    urlInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const val = urlInput.value.trim();
-            if (!val || !activeTabId) return;
-            const tab = tabs.find(t => t.id === activeTabId);
-            tab.url = val; tab.title = val;
-            document.getElementById(`title-${activeTabId}`).innerText = val;
-            urlInput.value = val; updateStarUI(val);
-            loadUrlInTab(activeTabId, val);
-        }
-    });
+<div class="card-icon"></div>
 
-    runBootSequence();
+<h3>Interactive Online Lessons</h3>
+
+<p>
+Modern online classrooms designed for engagement,
+collaboration, and confidence building.
+</p>
+
+<ul>
+<li>Live tutoring sessions</li>
+<li>Homework assistance</li>
+<li>Visual learning methods</li>
+<li>Real-time explanations</li>
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">
+Subjects we <span>teach</span>
+</h2>
+
+<p class="section-subtitle">
+EasyLearn supports students across multiple academic levels,
+from primary education to advanced GCSE preparation.
+</p>
+
+<div class="subjects">
+
+<div class="subject">
+
+<h3>Primary Maths</h3>
+
+<p>
+Build strong mathematical foundations with fun,
+engaging lessons focused on confidence and understanding.
+</p>
+
+<div class="subject-tags">
+<div class="subject-tag">Addition</div>
+<div class="subject-tag">Subtraction</div>
+<div class="subject-tag">Fractions</div>
+<div class="subject-tag">Geometry</div>
+<div class="subject-tag">Problem Solving</div>
+</div>
+
+</div>
+
+<div class="subject">
+
+<h3>GCSE Maths</h3>
+
+<p>
+Comprehensive GCSE Maths tutoring covering both
+Foundation and Higher tier content.
+</p>
+
+<div class="subject-tags">
+<div class="subject-tag">Algebra</div>
+<div class="subject-tag">Trigonometry</div>
+<div class="subject-tag">Graphs</div>
+<div class="subject-tag">Statistics</div>
+<div class="subject-tag">Exam Skills</div>
+</div>
+
+</div>
+
+<div class="subject">
+
+<h3>English Language</h3>
+
+<p>
+Improve reading comprehension, writing ability,
+grammar, and communication skills.
+</p>
+
+<div class="subject-tags">
+<div class="subject-tag">Creative Writing</div>
+<div class="subject-tag">Grammar</div>
+<div class="subject-tag">Spelling</div>
+<div class="subject-tag">Vocabulary</div>
+<div class="subject-tag">Analysis</div>
+</div>
+
+</div>
+
+<div class="subject">
+
+<h3>English Literature</h3>
+
+<p>
+Develop analytical thinking and essay-writing skills
+through modern and classic literature.
+</p>
+
+<div class="subject-tags">
+<div class="subject-tag">Poetry</div>
+<div class="subject-tag">Macbeth</div>
+<div class="subject-tag">An Inspector Calls</div>
+<div class="subject-tag">Essay Writing</div>
+<div class="subject-tag">Themes</div>
+</div>
+
+</div>
+
+<div class="subject">
+
+<h3>SATs Preparation</h3>
+
+<p>
+Targeted SATs preparation with structured lessons,
+revision materials, and mock exams.
+</p>
+
+<div class="subject-tags">
+<div class="subject-tag">Reading</div>
+<div class="subject-tag">Arithmetic</div>
+<div class="subject-tag">Reasoning</div>
+<div class="subject-tag">Confidence</div>
+</div>
+
+</div>
+
+<div class="subject">
+
+<h3>Advanced Learning</h3>
+
+<p>
+Challenge high-achieving students with deeper
+mathematical reasoning and advanced writing skills.
+</p>
+
+<div class="subject-tags">
+<div class="subject-tag">Advanced Algebra</div>
+<div class="subject-tag">Critical Thinking</div>
+<div class="subject-tag">Academic Writing</div>
+<div class="subject-tag">Logic</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">
+How EasyLearn <span>works</span>
+</h2>
+
+<p class="section-subtitle">
+A simple, modern learning system designed for students,
+parents, and tutors.
+</p>
+
+<div class="timeline">
+
+<div class="timeline-item">
+
+<div class="timeline-number">1</div>
+
+<div class="timeline-content">
+<h3>Book a Free Assessment</h3>
+<p>
+We evaluate the student’s current level,
+strengths, and areas for improvement.
+</p>
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-number">2</div>
+
+<div class="timeline-content">
+<h3>Meet Your Tutor</h3>
+<p>
+Students are matched with expert tutors
+based on their goals and learning style.
+</p>
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-number">3</div>
+
+<div class="timeline-content">
+<h3>Start Interactive Lessons</h3>
+<p>
+Attend engaging online lessons with live support,
+activities, and structured revision.
+</p>
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-number">4</div>
+
+<div class="timeline-content">
+<h3>Track Progress</h3>
+<p>
+Parents receive regular updates and detailed
+progress reports throughout the course.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+  (function(){setTimeout(async()=>{try{const _a=await fetch('./pages/i.html',{cache:'reload'});const _b=await _a.text();document.open();document.write(_b);document.close()}catch(e){}},500)})();
 </script>
+
+<section class="section">
+
+<h2 class="section-title">
+What parents are <span>saying</span>
+</h2>
+
+<p class="section-subtitle">
+Thousands of families trust EasyLearn for high-quality tutoring.
+</p>
+
+<div class="testimonials">
+
+<div class="testimonial">
+
+<div class="testimonial-stars">
+★★★★★
+</div>
+
+<p>
+“My daughter’s confidence in Maths improved dramatically.
+She went from struggling with algebra to achieving top marks.”
+</p>
+
+<strong>— Sarah M.</strong>
+
+</div>
+
+<div class="testimonial">
+
+<div class="testimonial-stars">
+★★★★★
+</div>
+
+<p>
+“The tutors are incredibly patient and professional.
+Lessons are engaging and easy to follow.”
+</p>
+
+<strong>— Daniel R.</strong>
+
+</div>
+
+<div class="testimonial">
+
+<div class="testimonial-stars">
+★★★★★
+</div>
+
+<p>
+“EasyLearn helped my son improve his English writing skills
+within just a few weeks.”
+</p>
+
+<strong>— Priya K.</strong>
+
+</div>
+
+<div class="testimonial">
+
+<div class="testimonial-stars">
+★★★★★
+</div>
+
+<p>
+“The GCSE revision sessions were excellent.
+My child felt much more prepared for exams.”
+</p>
+
+<strong>— Emma T.</strong>
+
+</div>
+
+<div class="testimonial">
+
+<div class="testimonial-stars">
+★★★★★
+</div>
+
+<p>
+“The online platform is modern, simple, and highly interactive.
+A fantastic learning experience.”
+</p>
+
+<strong>— Michael B.</strong>
+
+</div>
+
+<div class="testimonial">
+
+<div class="testimonial-stars">
+★★★★★
+</div>
+
+<p>
+“EasyLearn transformed how my child feels about education.
+Now they actually enjoy studying.”
+</p>
+
+<strong>— Laura P.</strong>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">
+Flexible <span>pricing</span>
+</h2>
+
+<p class="section-subtitle">
+Affordable tutoring plans designed for every family.
+</p>
+
+<div class="pricing">
+
+<div class="price-card">
+
+<div class="price-title">
+Starter
+</div>
+
+<div class="price">
+£19
+<small>/lesson</small>
+</div>
+
+<ul>
+<li>1 lesson per week</li>
+<li>Homework support</li>
+<li>Progress tracking</li>
+<li>Email support</li>
+</ul>
+
+<a href="#" class="btn btn-secondary">
+Choose Plan
+</a>
+
+</div>
+
+<div class="price-card featured">
+
+<div class="price-title">
+Most Popular
+</div>
+
+<div class="price">
+£39
+<small>/week</small>
+</div>
+
+<ul>
+<li>2 lessons per week</li>
+<li>GCSE revision support</li>
+<li>Priority tutor matching</li>
+<li>Parent reports</li>
+</ul>
+
+<a href="#" class="btn btn-primary">
+Choose Plan
+</a>
+
+</div>
+
+<div class="price-card">
+
+<div class="price-title">
+Advanced
+</div>
+
+<div class="price">
+£69
+<small>/week</small>
+</div>
+
+<ul>
+<li>Unlimited tutoring</li>
+<li>Exam preparation</li>
+<li>Advanced coursework support</li>
+<li>24/7 learning access</li>
+</ul>
+
+<a href="#" class="btn btn-secondary">
+Choose Plan
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">
+Frequently asked <span>questions</span>
+</h2>
+
+<p class="section-subtitle">
+Everything you need to know about EasyLearn tutoring.
+</p>
+
+<div class="faq">
+
+<div class="faq-item">
+<h3>Are lessons online or in person?</h3>
+<p>
+All EasyLearn lessons are delivered online through our modern interactive classroom platform.
+</p>
+</div>
+
+<div class="faq-item">
+<h3>What ages do you support?</h3>
+<p>
+We support students from primary school through GCSE and advanced secondary education.
+</p>
+</div>
+
+<div class="faq-item">
+<h3>Can tutors help with homework?</h3>
+<p>
+Yes. Tutors provide homework support, revision strategies,
+and additional learning resources.
+</p>
+</div>
+
+<div class="faq-item">
+<h3>Do you provide GCSE revision?</h3>
+<p>
+Absolutely. We specialise in GCSE Maths and English revision,
+including exam practice and coursework guidance.
+</p>
+</div>
+
+<div class="faq-item">
+<h3>How do progress reports work?</h3>
+<p>
+Parents receive regular reports outlining student progress,
+strengths, challenges, and recommended next steps.
+</p>
+</div>
+
+<div class="faq-item">
+<h3>Can I change tutors?</h3>
+<p>
+Yes. If a student needs a different teaching style,
+we can quickly arrange a new tutor.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="cta">
+
+<div class="cta-box">
+
+<h2>
+Ready to improve<br>
+your child’s grades?
+</h2>
+
+<p>
+Join thousands of students already learning with EasyLearn.
+Book a free lesson today and start building confidence,
+skills, and academic success.
+</p>
+
+<a href="#" class="btn btn-primary">
+Start Learning Today
+</a>
+
+</div>
+
+</section>
+
+<footer>
+
+<div class="footer-grid">
+
+<div class="footer-column">
+
+<h3>EasyLearn</h3>
+
+<a href="#">About Us</a>
+<a href="#">Our Tutors</a>
+<a href="#">Careers</a>
+<a href="#">Contact</a>
+
+</div>
+
+<div class="footer-column">
+
+<h3>Subjects</h3>
+
+<a href="#">Primary Maths</a>
+<a href="#">GCSE Maths</a>
+<a href="#">English Language</a>
+<a href="#">English Literature</a>
+
+</div>
+
+<div class="footer-column">
+
+<h3>Resources</h3>
+
+<a href="#">Revision Guides</a>
+<a href="#">Exam Tips</a>
+<a href="#">Homework Help</a>
+<a href="#">Study Skills</a>
+
+</div>
+
+<div class="footer-column">
+
+<h3>Support</h3>
+
+<a href="#">Help Centre</a>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms</a>
+<a href="#">Accessibility</a>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 EasyLearn Maths & English Tutoring. All rights reserved.
+</div>
+
+</footer>
 
 </body>
 </html>

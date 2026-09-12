@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Home - Classroom</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <link rel="stylesheet" href="./styles/i.css">
+    </head>
+
+    <body>
+        <div class="tbar" id="tabBar" style="z-index:999;">
+            <div class="tab active" data-tab-id="1">
+                <div class="tab-fav"><i data-lucide="globe"></i></div>
+                <span class="tab-tl">New Tab</span>
+                <div class="tab-cl"><i data-lucide="x"></i></div>
+            </div>
+            <div class="nt-btn" id="ntBtn">
+                <i data-lucide="plus" style="width:14px;height:14px;color:#808080;"></i>
+            </div>
+        </div>
+
+        <div class="main-col" style="z-index:999;">
+            <div class="address-bar">
+                <button class="nav-btn" id="backBtn" disabled><i data-lucide="arrow-left"></i></button>
+                <button class="nav-btn" id="fwBtn" disabled><i data-lucide="arrow-right"></i></button>
+                <button class="nav-btn" id="refBtn"><i data-lucide="rotate-cw"></i></button>
+                <div class="url-intainer">
+                    <div class="url-icon"><i data-lucide="atom"></i></div>
+                    <input type="text" class="url-input" placeholder="Search or enter address...">
+                </div>
+            </div>
+
+            <div class="below" style="z-index:999;">
+                <div class="sidebar" id="sidebar">
+                    <button class="sb-btn active" id="homeBtn" title="Home"><i data-lucide="house"></i></button>
+                    <button class="sb-btn" id="gmBtn" title="Games"><i data-lucide="gamepad-2"></i></button>
+                    <button class="sb-btn" id="cdBtn" title="Cloud"><i data-lucide="cloud"></i></button>
+                    <button class="sb-btn" id="aiBtn" title="AI"><i data-lucide="sparkle"></i></button>
+                    <button class="sb-btn" id="mvBtn" title="Movies"><i data-lucide="clapperboard"></i></button>
+                    <button class="sb-btn" id="msBtn" title="Music"><i data-lucide="music"></i></button>
+                    <button class="sb-btn" id="chBtn" title="Chat"><i data-lucide="message-circle"></i></button>
+                    <button class="sb-btn" id="vmBtn" title="VMs"><i data-lucide="bot"></i></button>
+                    <div class="sb-spacer"></div>
+                    <button class="sb-btn" id="stBtn" title="Settings"><i data-lucide="settings"></i></button>
+                </div>
+                <div class="page-content" id="pageCont">
+                    <iframe id="browserFrame" src="" frameborder="0" class="bframe" style="display:none;"></iframe>
+                    <div class="bloader" id="bloader">
+                        <div class="bloader-spinner"></div>
+                        <span class="bloader-text">loading, hold tight...</span>
+                    </div>
+                    <div class="main">
+                        <div class="main-ctr">
+                            <span class="main-tl" id="mainTl"></span>
+                            <p class="tagline" id="tagline"></p>
+                            <div class="main-search">
+                                <i data-lucide="search" class="main-search-icon"></i>
+                                <input type="text" class="main-search-input" placeholder="Search with DuckDuckGo...">
+                            </div>
+                            <div class="shortcuts">
+                                <button class="shortcut">
+                                    <div class="sc-icon"><img src="https://www.google.com/favicon.ico"></div>
+                                    <span class="sc-title">Google</span>
+                                </button>
+                                <button class="shortcut">
+                                    <div class="sc-icon"><img src="https://www.youtube.com/s/desktop/06cccec8/img/favicon_144x144.png"></div>
+                                    <span class="sc-title">YouTube</span>
+                                </button>
+                                <button class="shortcut">
+                                    <div class="sc-icon"><img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/6266bc493fb42d4e27bb8393_847541504914fd33810e70a0ea73177e.ico"></div>
+                                    <span class="sc-title">Discord</span>
+                                </button>
+                                <button class="shortcut">
+                                    <div class="sc-icon"><img src="https://sf16-sg.tiktokcdn.com/obj/eden-sg/uvkuhyieh7lpqpbj/pwa/512x512.png"></div>
+                                    <span class="sc-title">TikTok</span>
+                                </button>
+                                <button class="shortcut">
+                                    <div class="sc-icon"><img src="https://play.geforcenow.com/favicon.ico"></div>
+                                    <span class="sc-title">GeForce NOW</span>
+                                </button>
+                                <button class="shortcut">
+                                    <div class="sc-icon"><img src="https://images.rbxcdn.com/e854eb7b2951ac03edba9a2681032bba.ico"></div>
+                                    <span class="sc-title">Roblox</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/scramjet/scramjet.js"></script>
+        <script src="/controller/controller.api.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mercuryworkshop/epoxy-transport@3.0.1/dist/index.js"></script>
+        <script src="/scripts/main/script.js"></script>
+    </body>
+</html>

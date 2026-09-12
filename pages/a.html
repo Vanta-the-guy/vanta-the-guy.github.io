@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <link rel="stylesheet" href="../styles/a.css">
+    </head>
+    <body>
+        <div class="top-bar">
+            <div class="chat-sel" id="chatSel">
+                <button class="chat-btn" id="chatBtn">
+                    <i data-lucide="message-square" class="chat-icon"></i>
+                    <span id="chatLabel">Chats</span>
+                    <i data-lucide="chevron-down" class="chat-chv" id="chatChv"></i>
+                </button>
+                <div class="chat-dr" id="chatDr">
+                    <div class="chat-new" id="ncBtn">
+                        <i data-lucide="plus"></i>
+                        <span>New Chat</span>
+                    </div>
+                    <div class="chat-divider"></div>
+                    <div class="chat-list" id="chatList"></div>
+                </div>
+            </div>
+        </div>
+        <div class="overlay" id="overlay"></div>
+        <div class="content-area" id="contentArea">
+            <!--populated-->
+        </div>
+        <div class="prompt-bar">
+            <div class="prompt-group">
+                <div class="text-wpr">
+                    <i data-lucide="sparkle" class="text-icon"></i>
+                    <input type="text" class="text-input" id="textInput" placeholder="Ask the assistant anything...">
+                </div>
+                <button class="send-btn" id="sendBtn">
+                    <i data-lucide="send" class="send-icon" id="sendIcon"></i>
+                    <i data-lucide="pause" class="stop-icon" id="stopIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+        <script src="../scripts/ai/config.js"></script>
+        <script src="../scripts/ai/a.js"></script>
+    </body>
+</html>

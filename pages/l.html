@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@uimaxbai/am-lyrics/dist/src/am-lyrics.min.js"></script>
+        <link rel="stylesheet" href="../styles/l.css">
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="sb-item active" data-view="home">
+                <i data-lucide="home"></i>
+                <span>Home</span>
+            </div>
+            <div class="sb-item" data-view="library">
+                <i data-lucide="library"></i>
+                <span>Your Library</span>
+            </div>
+            <div class="sb-divider"></div>
+            <div class="sb-fav-header" id="sbFavHeader">
+                <i data-lucide="chevron-down"></i>
+                <span>Favorites</span> <!--american spelling because thats mainly where our userbase is from-->
+            </div>
+            <div class="sb-favourites" id="sbFavourites"></div>
+        </div>
+
+        <div class="main-panel">
+            <div class="top-bar">
+                <div class="np-inline" id="npBar">
+                    <img id="npThumb" class="np-icon" src="" alt="" style="display:none;">
+                    <div class="np-inline-meta">
+                        <div class="np-title" id="npTitle">Nothing playing</div>
+                        <div class="np-progress">
+                            <div class="np-progress-fill" id="npProgressFill"></div>
+                        </div>
+                    </div>
+                    <button class="np-play-btn" id="npPlayBtn">
+                        <i data-lucide="play"></i>
+                    </button>
+                </div>
+                <div class="search-wpr">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search for a song, artist or album...">
+                </div>
+            </div>
+            <div class="content-area" id="contentArea">
+                <div class="card-grid" id="cardGrid"></div>
+            </div>
+            <div class="np-view" id="npmView">
+                <div class="np-left">
+                    <img class="np-cover" id="npmCover" src="" alt="">
+                    <div class="np-details">
+                        <div class="np-track-title" id="npmTrackTitle">-</div>
+                        <div class="np-track-artist" id="npmTrackArtist">-</div>
+                    </div>
+                    <div class="np-seek-row">
+                        <span class="np-time" id="npmCurrentTime">0:00</span>
+                        <div class="np-mprogress" id="npmProgressTrack">
+                            <div class="np-mprogress-fill" id="npmProgressFill"></div>
+                            <div class="np-mprogress-handle" id="npmProgressHandle"></div>
+                        </div>
+                        <span class="np-time" id="npmDuration">0:00</span>
+                    </div>
+                    <div class="np-mcontrols">
+                        <button class="np-skip-btn" id="npmBackTenBtn">
+                            <i data-lucide="rotate-ccw"></i>
+                        </button>
+                        <button class="np-mplay-btn" id="npmPlayBtn">
+                            <i data-lucide="play"></i>
+                        </button>
+                        <button class="np-skip-btn" id="npmFwdTenBtn">
+                            <i data-lucide="rotate-cw"></i>
+                        </button>
+                        <button class="np-fav-btn" id="npmFavBtn">
+                            <i data-lucide="heart"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="np-right">
+                    <am-lyrics
+                        id="amLyricsEl"
+                        song-title=""
+                        song-artist=""
+                        highlight-color="#60a5fa"
+                        font-family="'Inter', sans-serif"
+                        autoscroll
+                        interpolate
+                        hide-source-footer
+                    ></am-lyrics>
+                </div>
+            </div>
+        </div>
+        <script src="../scripts/music/l.js"></script>
+    </body>
+</html>

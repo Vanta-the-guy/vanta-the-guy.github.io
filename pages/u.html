@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <link rel="stylesheet" href="../styles/u.css">
+    </head>
+    <body>
+        <div class="auth-wrap">
+            <form class="auth-card" id="authForm">
+                <div class="auth-heading">
+                    <h1 id="authTitle">Welcome back</h1>
+                    <p id="authSubtitle">Sign in to continue</p>
+                </div>
+                <div class="auth-fields">
+                    <div class="field-wpr">
+                        <i data-lucide="user" class="field-icon"></i>
+                        <input type="text" class="field-input" id="usernameInput" placeholder="Username" required>
+                    </div>
+                    <div class="field-wpr">
+                        <i data-lucide="lock" class="field-icon"></i>
+                        <input type="password" class="field-input" id="passwordInput" placeholder="Password" required>
+                    </div>
+                    <div class="field-wpr field-confirm" id="confirmField">
+                        <i data-lucide="lock" class="field-icon"></i>
+                        <input type="password" class="field-input" id="confirmInput" placeholder="Confirm password">
+                    </div>
+                </div>
+                <p class="auth-error" id="authError"></p>
+                <button type="submit" class="auth-btn" id="authSubmitBtn">
+                    <span id="authBtnText">Let's go</span>
+                    <i data-lucide="arrow-right" class="auth-btn-icon"></i>
+                </button>
+                <p class="auth-footer">
+                    <span id="authFooterText">Don't have an account?</span> <span class="auth-link" id="authToggleLink">Sign up</span>
+                </p>
+            </form>
+        </div>
+        <script type="module" src="../scripts/auth/u.js"></script>
+    </body>
+</html>

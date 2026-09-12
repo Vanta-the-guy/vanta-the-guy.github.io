@@ -1,4 +1,3 @@
-(() => {
 var __webpack_modules__ = ({
 "./packages/core/src/client sync recursive ^\\.\\/.*$"(module, __unused_rspack_exports, __webpack_require__) {
 var map = {
@@ -13150,7 +13149,7 @@ __webpack_require__.d(__webpack_exports__, {
 const versionInfo = {
     version: "2.0.67-alpha.2",
     build: "e9ff92d1",
-    date: "2026-08-02T14:09:14.367Z"
+    date: "2026-08-02T14:09:14.375Z"
 };
 const defaultConfig = {
     globals: {
@@ -13209,7 +13208,58 @@ if (false) {}
 
 })();
 
-self.$scramjet = __webpack_exports__;
-})()
-;
-//# sourceMappingURL=scramjet.js.map
+var __webpack_exports__BareResponse = __webpack_exports__.BareResponse;
+var __webpack_exports__CookieJar = __webpack_exports__.CookieJar;
+var __webpack_exports__IncrementalHtmlRewriter = __webpack_exports__.IncrementalHtmlRewriter;
+var __webpack_exports__Plugin = __webpack_exports__.Plugin;
+var __webpack_exports__SCRAMJETCLIENT = __webpack_exports__.SCRAMJETCLIENT;
+var __webpack_exports__SCRAMJETCLIENTNAME = __webpack_exports__.SCRAMJETCLIENTNAME;
+var __webpack_exports__ScramjetClient = __webpack_exports__.ScramjetClient;
+var __webpack_exports__ScramjetFetchHandler = __webpack_exports__.ScramjetFetchHandler;
+var __webpack_exports__ScramjetFetchTrackedClient = __webpack_exports__.ScramjetFetchTrackedClient;
+var __webpack_exports__ScramjetHeaders = __webpack_exports__.ScramjetHeaders;
+var __webpack_exports__Tap = __webpack_exports__.Tap;
+var __webpack_exports__createLocationProxy = __webpack_exports__.createLocationProxy;
+var __webpack_exports__defaultConfig = __webpack_exports__.defaultConfig;
+var __webpack_exports__defaultConfigDev = __webpack_exports__.defaultConfigDev;
+var __webpack_exports__flagEnabled = __webpack_exports__.flagEnabled;
+var __webpack_exports__getOwnPropertyDescriptorHandler = __webpack_exports__.getOwnPropertyDescriptorHandler;
+var __webpack_exports__getRewriter = __webpack_exports__.getRewriter;
+var __webpack_exports__getScriptBlockTypeString = __webpack_exports__.getScriptBlockTypeString;
+var __webpack_exports__htmlRules = __webpack_exports__.htmlRules;
+var __webpack_exports__isArchiveMimeType = __webpack_exports__.isArchiveMimeType;
+var __webpack_exports__isAudioOrVideoMimeType = __webpack_exports__.isAudioOrVideoMimeType;
+var __webpack_exports__isFontMimeType = __webpack_exports__.isFontMimeType;
+var __webpack_exports__isHtmlMimeType = __webpack_exports__.isHtmlMimeType;
+var __webpack_exports__isImageMimeType = __webpack_exports__.isImageMimeType;
+var __webpack_exports__isInlineDisplayableMimeType = __webpack_exports__.isInlineDisplayableMimeType;
+var __webpack_exports__isJavascriptMimeType = __webpack_exports__.isJavascriptMimeType;
+var __webpack_exports__isJavascriptMimeTypeEssenceMatch = __webpack_exports__.isJavascriptMimeTypeEssenceMatch;
+var __webpack_exports__isModuleScriptType = __webpack_exports__.isModuleScriptType;
+var __webpack_exports__isScriptType = __webpack_exports__.isScriptType;
+var __webpack_exports__isScriptableMimeType = __webpack_exports__.isScriptableMimeType;
+var __webpack_exports__isXmlMimeType = __webpack_exports__.isXmlMimeType;
+var __webpack_exports__isZipBasedMimeType = __webpack_exports__.isZipBasedMimeType;
+var __webpack_exports__isdedicated = __webpack_exports__.isdedicated;
+var __webpack_exports__isshared = __webpack_exports__.isshared;
+var __webpack_exports__issw = __webpack_exports__.issw;
+var __webpack_exports__iswindow = __webpack_exports__.iswindow;
+var __webpack_exports__isworker = __webpack_exports__.isworker;
+var __webpack_exports__parseMimeType = __webpack_exports__.parseMimeType;
+var __webpack_exports__rewriteBlob = __webpack_exports__.rewriteBlob;
+var __webpack_exports__rewriteCss = __webpack_exports__.rewriteCss;
+var __webpack_exports__rewriteHtml = __webpack_exports__.rewriteHtml;
+var __webpack_exports__rewriteJs = __webpack_exports__.rewriteJs;
+var __webpack_exports__rewriteJsInner = __webpack_exports__.rewriteJsInner;
+var __webpack_exports__rewriteSrcset = __webpack_exports__.rewriteSrcset;
+var __webpack_exports__rewriteUrl = __webpack_exports__.rewriteUrl;
+var __webpack_exports__rewriteWorkers = __webpack_exports__.rewriteWorkers;
+var __webpack_exports__setWasm = __webpack_exports__.setWasm;
+var __webpack_exports__unrewriteBlob = __webpack_exports__.unrewriteBlob;
+var __webpack_exports__unrewriteCss = __webpack_exports__.unrewriteCss;
+var __webpack_exports__unrewriteHtml = __webpack_exports__.unrewriteHtml;
+var __webpack_exports__unrewriteUrl = __webpack_exports__.unrewriteUrl;
+var __webpack_exports__versionInfo = __webpack_exports__.versionInfo;
+export { __webpack_exports__BareResponse as BareResponse, __webpack_exports__CookieJar as CookieJar, __webpack_exports__IncrementalHtmlRewriter as IncrementalHtmlRewriter, __webpack_exports__Plugin as Plugin, __webpack_exports__SCRAMJETCLIENT as SCRAMJETCLIENT, __webpack_exports__SCRAMJETCLIENTNAME as SCRAMJETCLIENTNAME, __webpack_exports__ScramjetClient as ScramjetClient, __webpack_exports__ScramjetFetchHandler as ScramjetFetchHandler, __webpack_exports__ScramjetFetchTrackedClient as ScramjetFetchTrackedClient, __webpack_exports__ScramjetHeaders as ScramjetHeaders, __webpack_exports__Tap as Tap, __webpack_exports__createLocationProxy as createLocationProxy, __webpack_exports__defaultConfig as defaultConfig, __webpack_exports__defaultConfigDev as defaultConfigDev, __webpack_exports__flagEnabled as flagEnabled, __webpack_exports__getOwnPropertyDescriptorHandler as getOwnPropertyDescriptorHandler, __webpack_exports__getRewriter as getRewriter, __webpack_exports__getScriptBlockTypeString as getScriptBlockTypeString, __webpack_exports__htmlRules as htmlRules, __webpack_exports__isArchiveMimeType as isArchiveMimeType, __webpack_exports__isAudioOrVideoMimeType as isAudioOrVideoMimeType, __webpack_exports__isFontMimeType as isFontMimeType, __webpack_exports__isHtmlMimeType as isHtmlMimeType, __webpack_exports__isImageMimeType as isImageMimeType, __webpack_exports__isInlineDisplayableMimeType as isInlineDisplayableMimeType, __webpack_exports__isJavascriptMimeType as isJavascriptMimeType, __webpack_exports__isJavascriptMimeTypeEssenceMatch as isJavascriptMimeTypeEssenceMatch, __webpack_exports__isModuleScriptType as isModuleScriptType, __webpack_exports__isScriptType as isScriptType, __webpack_exports__isScriptableMimeType as isScriptableMimeType, __webpack_exports__isXmlMimeType as isXmlMimeType, __webpack_exports__isZipBasedMimeType as isZipBasedMimeType, __webpack_exports__isdedicated as isdedicated, __webpack_exports__isshared as isshared, __webpack_exports__issw as issw, __webpack_exports__iswindow as iswindow, __webpack_exports__isworker as isworker, __webpack_exports__parseMimeType as parseMimeType, __webpack_exports__rewriteBlob as rewriteBlob, __webpack_exports__rewriteCss as rewriteCss, __webpack_exports__rewriteHtml as rewriteHtml, __webpack_exports__rewriteJs as rewriteJs, __webpack_exports__rewriteJsInner as rewriteJsInner, __webpack_exports__rewriteSrcset as rewriteSrcset, __webpack_exports__rewriteUrl as rewriteUrl, __webpack_exports__rewriteWorkers as rewriteWorkers, __webpack_exports__setWasm as setWasm, __webpack_exports__unrewriteBlob as unrewriteBlob, __webpack_exports__unrewriteCss as unrewriteCss, __webpack_exports__unrewriteHtml as unrewriteHtml, __webpack_exports__unrewriteUrl as unrewriteUrl, __webpack_exports__versionInfo as versionInfo };
+
+//# sourceMappingURL=scramjet.mjs.map
